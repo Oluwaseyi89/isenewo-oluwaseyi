@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Send, Mail, Phone, MapPin, CheckCircle, Loader2 } from 'lucide-react'
 import { CONTACT_CONFIG, SOCIAL_LINKS } from '@/app/utils/constants'
+import { SOCIAL_ICON_MAP } from '@/app/utils/social-icons'
+
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -143,7 +145,7 @@ export default function Contact() {
           </div>
 
           {/* Social Links */}
-          <div>
+          {/* <div>
             <h4 className="text-lg font-semibold text-foreground mb-4">
               Connect on social media
             </h4>
@@ -166,7 +168,54 @@ export default function Contact() {
                 </motion.a>
               ))}
             </div>
-          </div>
+          </div> */}
+
+<div>
+  <h4 className="text-lg font-semibold text-foreground mb-4">
+    Connect on social media
+  </h4>
+
+  <div className="flex flex-wrap gap-4">
+    {SOCIAL_LINKS.map((link, index) => {
+      const Icon = SOCIAL_ICON_MAP[link.icon]
+
+      return (
+        <motion.a
+          key={link.name}
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={link.name}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 * index }}
+          whileHover={{ scale: 1.1, y: -4 }}
+          whileTap={{ scale: 0.95 }}
+          className={`
+            group
+            p-3
+            rounded-xl
+            glass-effect
+            border border-border
+            transition-all
+            ${link.color}
+          `}
+        >
+          <Icon
+            className="
+              w-5 h-5
+              text-muted-foreground
+              group-hover:text-current
+              transition-colors
+            "
+          />
+        </motion.a>
+      )
+    })}
+  </div>
+</div>
+
         </motion.div>
 
         {/* Right column - Contact Form */}

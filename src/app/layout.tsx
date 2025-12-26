@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/app/components/header/Header'
+import Footer from '@/app/components/footer/Footer'
 import { ThemeProvider } from '@/app/providers/ThemeProvider' // Import ThemeProvider
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,6 +24,7 @@ export default function RootLayout({
         <ThemeProvider> {/* Wrap everything with ThemeProvider */}
           <Header />
           <main className="min-h-screen">{children}</main>
+          <Footer/>
         </ThemeProvider>
       </body>
     </html>

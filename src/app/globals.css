@@ -1,27 +1,43 @@
 @import "tailwindcss";
 
+/* --------------------------------------------------
+   COLOR TOKENS
+   -------------------------------------------------- */
+
+/* Light mode (default) */
 :root {
+  /* Core surfaces */
   --background: #ffffff;
-  --foreground: #0a192f; /* Navy blue */
-  --primary: #1e3a8a; /* Dark navy */
-  --primary-light: #3b82f6; /* Sky blue */
-  --secondary: #06b6d4; /* Cyan accent */
-  --accent: #8b5cf6; /* Purple for highlights */
-  --muted: #64748b;
-  --border: #e2e8f0;
+  --foreground: #0b1220; /* Near-black navy for strong contrast */
+
+  /* Brand */
+  --primary: #1e40af; /* Stronger navy */
+  --primary-light: #3b82f6;
+  --secondary: #0891b2;
+  --accent: #7c3aed;
+
+  /* Supporting */
+  --muted: #475569; /* Darkened for readability */
+  --border: #e5e7eb;
 }
 
+/* Dark mode */
 [data-theme="dark"] {
-  --background: #0a192f; /* Navy background */
-  --foreground: #f8fafc; /* Light text */
-  --primary: #60a5fa; /* Sky blue */
-  --primary-light: #93c5fd; /* Lighter sky blue */
-  --secondary: #22d3ee; /* Bright cyan */
+  --background: #0a192f;
+  --foreground: #f8fafc;
+
+  --primary: #60a5fa;
+  --primary-light: #93c5fd;
+  --secondary: #22d3ee;
   --accent: #a78bfa;
-  --muted: #94a3b8;
+
+  --muted: #9ca3af;
   --border: #334155;
 }
 
+/* --------------------------------------------------
+   TAILWIND TOKEN BRIDGE
+   -------------------------------------------------- */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -31,56 +47,63 @@
   --color-accent: var(--accent);
   --color-muted: var(--muted);
   --color-border: var(--border);
-  
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
+
   /* Animations */
   --animate-fade-in: fadeIn 0.5s ease-in-out;
   --animate-slide-up: slideUp 0.5s ease-out;
   --animate-slide-down: slideDown 0.5s ease-out;
   --animate-pulse-slow: pulse 3s infinite;
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  @keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  
-  @keyframes slideDown {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* --------------------------------------------------
+   KEYFRAMES
+   -------------------------------------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* Smooth scrolling */
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* --------------------------------------------------
+   BASE STYLES
+   -------------------------------------------------- */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* --------------------------------------------------
+   SCROLLBAR
+   -------------------------------------------------- */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: color-mix(in srgb, var(--background) 90%, transparent);
+  background: color-mix(in srgb, var(--background) 92%, transparent);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -92,23 +115,39 @@ html {
   background: var(--primary-light);
 }
 
-/* Gradient backgrounds */
+/* --------------------------------------------------
+   BACKGROUNDS & EFFECTS
+   -------------------------------------------------- */
+
+/* Hero gradients */
 .bg-navy-gradient {
-  background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 50%, #0a192f 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    #1e3a8a 45%,
+    #0a192f 100%
+  );
 }
 
 .bg-sky-gradient {
-  background: linear-gradient(135deg, var(--primary-light) 0%, #38bdf8 50%, #0ea5e9 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-light) 0%,
+    #38bdf8 50%,
+    #0ea5e9 100%
+  );
 }
 
-/* Glass morphism effect */
+/* Glass morphism */
 .glass-effect {
-  background: color-mix(in srgb, var(--background) 80%, transparent);
-  backdrop-filter: blur(10px);
-  border: 1px solid color-mix(in srgb, var(--border) 30%, transparent);
+  background: color-mix(in srgb, var(--background) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
 }
 
-/* Section animations */
+/* --------------------------------------------------
+   SECTION TRANSITIONS
+   -------------------------------------------------- */
 .section-enter {
   opacity: 0;
   transform: translateY(20px);
@@ -119,10 +158,6 @@ html {
   transform: translateY(0);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
-
-
-
 
 
 

@@ -86,7 +86,7 @@ export default function Header() {
                 }}
                 className="text-xl font-bold tracking-tight"
               >
-                <span className="text-primary">Isenewo</span>
+                <span className="text-primary">seyi</span>
                 <span className="text-primary-light">.</span>
                 <span className="text-foreground">dev</span>
               </a>

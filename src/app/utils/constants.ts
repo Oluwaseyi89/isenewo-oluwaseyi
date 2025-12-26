@@ -1,3 +1,7 @@
+import type { SocialIconKey } from './social-icons'
+
+
+
 // Navigation items
 export const NAV_ITEMS = [
     { 
@@ -33,15 +37,23 @@ const ALL_PROJECT_TAGS = [
     'IoT',
     'TypeScript',
     'Next.js',
+    'Nest.js',
     'DeFi',
     'Web3',
     'React',
+    'React-Native',
+    'Django',
+    'Springboot',
+    'Paystack',
     'Solidity',
     'Ethereum',
+    'Starknet',
+    'Cairo',
     'Polygon',
     'AI',
     'Rust',
     'Python',
+    'Java',
     'Documentation',
     'Automation',
     'Node.js',
@@ -63,33 +75,41 @@ const ALL_PROJECT_TAGS = [
   export type NavItem = typeof NAV_ITEMS[number]
   export type SectionId = NavItem['id']
   
-  // Social media links
-  export const SOCIAL_LINKS = [
-    {
-      name: 'GitHub',
-      url: 'https://github.com/yourusername',
-      icon: 'github',
-      color: 'hover:text-gray-800 dark:hover:text-gray-300',
-    },
-    {
-      name: 'LinkedIn',
-      url: 'https://linkedin.com/in/yourusername',
-      icon: 'linkedin',
-      color: 'hover:text-blue-700 dark:hover:text-blue-400',
-    },
-    {
-      name: 'Twitter',
-      url: 'https://twitter.com/yourusername',
-      icon: 'twitter',
-      color: 'hover:text-sky-600 dark:hover:text-sky-400',
-    },
-    {
-      name: 'Email',
-      url: 'mailto:you@example.com',
-      icon: 'mail',
-      color: 'hover:text-red-600 dark:hover:text-red-400',
-    },
-  ] as const
+
+
+
+export const SOCIAL_LINKS = [
+  {
+    name: 'GitHub',
+    url: 'https://github.com/Oluwaseyi89',
+    icon: 'github',
+    color: 'hover:text-gray-800 dark:hover:text-gray-300',
+  },
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/oluwaseyi-isenewo-6463838a',
+    icon: 'linkedin',
+    color: 'hover:text-blue-700 dark:hover:text-blue-400',
+  },
+  {
+    name: 'Twitter',
+    url: 'https://x.com/IsenewoE',
+    icon: 'twitter',
+    color: 'hover:text-sky-600 dark:hover:text-sky-400',
+  },
+  {
+    name: 'Email',
+    url: 'mailto:isenewoephr2012@gmail.com',
+    icon: 'mail',
+    color: 'hover:text-red-600 dark:hover:text-red-400',
+  },
+] satisfies ReadonlyArray<{
+  name: string
+  url: string
+  icon: SocialIconKey
+  color: string
+}>
+
   
   // Tech stack with icons/colors
   export const TECH_STACK = {
@@ -104,7 +124,7 @@ const ALL_PROJECT_TAGS = [
       { name: 'Cairo', level: 'Beginner', color: 'bg-purple-500/20 text-purple-600' },
     ],
     frameworks: [
-      { name: 'Next.js', color: 'bg-black/20 text-black dark:bg-white/20 dark:text-white' },
+      { name: 'Next.js', color: 'bg-black/20 text-black dark:bg-white/20 dark:text-gray' },
       { name: 'React', color: 'bg-cyan-500/20 text-cyan-600' },
       { name: 'Node.js', color: 'bg-green-500/20 text-green-600' },
       { name: 'Express', color: 'bg-gray-500/20 text-gray-600' },
@@ -130,63 +150,63 @@ const ALL_PROJECT_TAGS = [
   export const PROJECTS = [
     {
       id: 1,
-      title: 'CarbonScribe',
-      description: 'Carbon credit tokenization platform on Stellar blockchain for regenerative agriculture projects in developing nations.',
-      tags: ['Stellar', 'Soroban', 'Blockchain', 'IoT', 'TypeScript', 'Next.js'] as ProjectTag[],
+      title: 'ParcelApp',
+      description: 'ParcelApp is a full-stack e-commerce platform built with React, Django, and Spring Boot. It seamlessly manages vendors (inventory/orders), customers (purchasing/tracking), and couriers (dispatch/delivery). Secure payment processing is handled by Spring Boot microservices, while Django orchestrates the core marketplace operations.',
+      tags: ['React', 'Django', 'Springboot', 'Python', 'Java', 'TypeScript', 'React-Native', 'Paystack'] as ProjectTag[],
       image: '/images/projects/carbonscribe.jpg',
-      githubUrl: 'https://github.com/yourusername/carbonscribe',
-      liveUrl: 'https://carbonscribe.dev',
+      githubUrl: 'https://github.com/Oluwaseyi89/parcel-app-react.git',
+      liveUrl: 'https://parcel-app.vercel.app',
       featured: true,
     },
     {
       id: 2,
-      title: 'Orion',
-      description: 'Cross-chain DeFi dashboard aggregating yields, staking, and lending across multiple blockchains.',
-      tags: ['DeFi', 'Web3', 'React', 'Solidity', 'Ethereum', 'Polygon'] as ProjectTag[],
+      title: 'Starknet-Indemnify',
+      description: 'Starknet-Indemnify is a full-stack insurance platform built with Next.js, Nest.js, and Cairo smart contracts. It enables users to purchase and manage policies with all underwriting logic and execution secured on the Starknet blockchain.',
+      tags: ['DeFi', 'Web3', 'Next.js', 'Nest.js', 'Starknet', 'Cairo'] as ProjectTag[],
       image: '/images/projects/orion.jpg',
-      githubUrl: 'https://github.com/yourusername/orion',
-      liveUrl: 'https://orion-defi.vercel.app',
+      githubUrl: 'https://github.com/Oluwaseyi89/starknet-indemnify-web.git',
+      liveUrl: 'https://starknet-indemnify.vercel.app',
       featured: true,
     },
     {
       id: 3,
-      title: 'Justifyr',
-      description: 'AI-powered spec generator for multi-language development with automated documentation and test case generation.',
-      tags: ['AI', 'Rust', 'Python', 'TypeScript', 'Documentation', 'Automation'] as ProjectTag[],
+      title: 'NFTopia',
+      description: 'NFTopia is a full-stack NFT platform built on Starknet. Powered by a Next.js frontend and Nest.js backend, it features a seamless marketplace and minting experience, with all transactions and ownership secured by Cairo smart contracts.',
+      tags: ['DeFi', 'Web3', 'Next.js', 'Nest.js', 'Starknet', 'Cairo'] as ProjectTag[],
       image: '/images/projects/justifyr.jpg',
-      githubUrl: 'https://github.com/yourusername/justifyr',
-      liveUrl: null,
-      featured: false,
+      githubUrl: 'https://github.com/Oluwaseyi89/nftopia.git',
+      liveUrl: 'https://nftopia-frontend.vercel.app',
+      featured: true,
     },
     {
       id: 4,
-      title: 'E-commerce Platform',
-      description: 'Full-stack e-commerce solution with real-time inventory, payment processing, and admin dashboard.',
+      title: 'Neuraplay',
+      description: 'NeuraPlay is a game decision-making agent deployed on Google Cloud Run. The system features a React frontend and a Django backend that integrates Google\'s Gemini API for intelligent gameplay analysis and recommendations.',
       tags: ['Next.js', 'Node.js', 'PostgreSQL', 'Stripe', 'Redis'] as ProjectTag[],
       image: '/images/projects/ecommerce.jpg',
-      githubUrl: 'https://github.com/yourusername/ecommerce',
-      liveUrl: 'https://store.example.com',
-      featured: false,
+      githubUrl: 'https://github.com/Oluwaseyi89/neuraplay-cloudrun.git',
+      liveUrl: 'https://neuraplay.vercel.app',
+      featured: true,
     },
     {
       id: 5,
-      title: 'Real-time Chat App',
+      title: 'RoadSense',
       description: 'Scalable chat application with WebSocket connections, end-to-end encryption, and file sharing.',
       tags: ['WebSocket', 'React', 'Node.js', 'MongoDB', 'Redis', 'Docker'] as ProjectTag[],
       image: '/images/projects/chat.jpg',
-      githubUrl: 'https://github.com/yourusername/chat-app',
-      liveUrl: 'https://chat.example.com',
-      featured: false,
+      githubUrl: 'https://github.com/Oluwaseyi89/toyota-hack-the-track.git',
+      liveUrl: 'https://road-sense-app.vercel.app',
+      featured: true,
     },
     {
       id: 6,
-      title: 'AI Content Generator',
-      description: 'SaaS platform for AI-powered content creation with GPT integration and analytics dashboard.',
+      title: 'DazCourse',
+      description: 'DazCourse is a modern learning platform built with React and custom vanilla CSS, featuring a responsive UI and interactive lessons. Firebase handles real-time data storage, user authentication, and seamless content delivery for an engaging educational experience.',
       tags: ['AI', 'OpenAI', 'FastAPI', 'React', 'PostgreSQL', 'Docker'] as ProjectTag[],
       image: '/images/projects/ai-content.jpg',
-      githubUrl: 'https://github.com/yourusername/ai-content',
-      liveUrl: 'https://ai-content.example.com',
-      featured: false,
+      githubUrl: 'https://github.com/Oluwaseyi89/daz_course.git',
+      liveUrl: 'https://daz-course.vercel.app',
+      featured: true,
     },
   ] as const
   

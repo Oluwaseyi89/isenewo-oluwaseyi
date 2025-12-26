@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion'
 import { ArrowDown, Sparkles } from 'lucide-react'
 import { SOCIAL_LINKS } from '@/app/utils/constants'
+import { SOCIAL_ICON_MAP } from '@/app/utils/social-icons'
+
 
 export default function Intro() {
   const scrollToAbout = () => {
@@ -26,7 +28,8 @@ export default function Intro() {
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
-            <div className="space-y-4">
+            {/* style={{border: "solid red 1px"}} */}
+            <div  className="space-y-4">
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -39,11 +42,36 @@ export default function Intro() {
                 </span>
               </motion.div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
-                <span className="block text-foreground">Isenewo</span>
-                <span className="block text-primary-light">Oluwaseyi</span>
-                <span className="block text-primary">Ephraim</span>
-              </h1>
+
+            <div className="w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              {/* Avatar */}
+              <div className="flex justify-center lg:justify-end">
+                <div className="w-48 h-48 sm:w-64 sm:h-64 lg:w-70 lg:h-70 overflow-hidden rounded-full shadow-lg">
+                  <img
+                    alt="avatar"
+                    src="https://firebasestorage.googleapis.com/v0/b/daz-course-by-seyi.appspot.com/o/Eph_corporate_psp%20001.jpg?alt=media&token=87d00ed2-134a-4ebe-aebe-9d4be42479b2"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Name / Heading */}
+              <div className="flex justify-center lg:justify-start text-center lg:text-left">
+                <h1 className="font-bold tracking-tight leading-tight">
+                  <span className="block text-3xl sm:text-4xl lg:text-5xl text-foreground">
+                    Isenewo
+                  </span>
+                  <span className="block text-4xl sm:text-5xl lg:text-5xl text-primary-light">
+                    Oluwaseyi
+                  </span>
+                  <span className="block text-3xl sm:text-4xl lg:text-5xl text-primary">
+                    Ephraim
+                  </span>
+                </h1>
+              </div>
+            </div>
+
+
 
               <motion.p
                 initial={{ opacity: 0 }}
@@ -57,30 +85,52 @@ export default function Intro() {
             </div>
 
             {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex flex-wrap gap-4"
-            >
-              {SOCIAL_LINKS.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.8 + index * 0.1 }}
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`p-3 rounded-xl glass-effect ${link.color} transition-all`}
-                  aria-label={link.name}
-                >
-                  <span className="text-lg">{link.icon}</span>
-                </motion.a>
-              ))}
-            </motion.div>
+           
+
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.6 }}
+  className="flex flex-wrap gap-4"
+>
+  {SOCIAL_LINKS.map((link, index) => {
+    const Icon = SOCIAL_ICON_MAP[link.icon]
+
+    return (
+      <motion.a
+        key={link.name}
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.8 + index * 0.1 }}
+        whileHover={{ scale: 1.1, y: -4 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label={link.name}
+        className={`
+          group
+          p-4
+          rounded-xl
+          glass-effect
+          border border-border
+          transition-all
+          ${link.color}
+        `}
+      >
+        <Icon
+          className="
+            w-6 h-6
+            text-muted-foreground
+            group-hover:text-current
+            transition-colors
+          "
+        />
+      </motion.a>
+    )
+  })}
+</motion.div>
+
 
             {/* CTA Buttons */}
             <motion.div
@@ -119,9 +169,9 @@ export default function Intro() {
             <div className="grid grid-cols-2 gap-4">
               {[
                 { label: 'Years Experience', value: '5+' },
-                { label: 'Projects Delivered', value: '50+' },
-                { label: 'Technologies', value: '25+' },
-                { label: 'Happy Clients', value: '30+' },
+                { label: 'Projects Delivered', value: '10+' },
+                { label: 'Technologies', value: '20+' },
+                { label: 'Happy Clients', value: '5' },
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -145,7 +195,7 @@ export default function Intro() {
                 transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                 className="relative w-48 h-48"
               >
-                {['JS', 'TS', 'Rust', 'Py'].map((tech, index) => (
+                {['Java', 'TS', 'Rust', 'Py'].map((tech, index) => (
                   <motion.div
                     key={tech}
                     className="absolute bg-background border border-border rounded-full p-3 shadow-lg"
