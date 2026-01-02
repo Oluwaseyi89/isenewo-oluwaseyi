@@ -63,6 +63,9 @@ const ALL_PROJECT_TAGS = [
     'WebSocket',
     'MongoDB',
     'Docker',
+    'GCP',
+    'AWS',
+    'Azure',
     'OpenAI',
     'FastAPI',
   ] as const
@@ -121,7 +124,7 @@ export const SOCIAL_LINKS = [
       { name: 'C++', level: 'Advanced', color: 'bg-blue-700/20 text-blue-700' },
       { name: 'Go', level: 'Intermediate', color: 'bg-cyan-500/20 text-cyan-600' },
       { name: 'Solidity', level: 'Intermediate', color: 'bg-gray-700/20 text-gray-700' },
-      { name: 'Cairo', level: 'Beginner', color: 'bg-purple-500/20 text-purple-600' },
+      { name: 'Cairo', level: 'Intermediate', color: 'bg-purple-500/20 text-purple-600' },
     ],
     frameworks: [
       { name: 'Next.js', color: 'bg-black/20 text-black dark:bg-white/20 dark:text-gray' },
@@ -153,9 +156,9 @@ export const SOCIAL_LINKS = [
       title: 'ParcelApp',
       description: 'ParcelApp is a full-stack e-commerce platform built with React, Django, and Spring Boot. It seamlessly manages vendors (inventory/orders), customers (purchasing/tracking), and couriers (dispatch/delivery). Secure payment processing is handled by Spring Boot microservices, while Django orchestrates the core marketplace operations.',
       tags: ['React', 'Django', 'Springboot', 'Python', 'Java', 'TypeScript', 'React-Native', 'Paystack'] as ProjectTag[],
-      image: '/images/projects/carbonscribe.jpg',
+      image: 'https://firebasestorage.googleapis.com/v0/b/daz-course-by-seyi.appspot.com/o/parcel_app.png?alt=media&token=55956589-b5b0-4e38-a59b-72eeca7279f6',
       githubUrl: 'https://github.com/Oluwaseyi89/parcel-app-react.git',
-      liveUrl: 'https://parcel-app.vercel.app',
+      liveUrl: 'https://parcel-app-web.vercel.app',
       featured: true,
     },
     {
@@ -163,9 +166,9 @@ export const SOCIAL_LINKS = [
       title: 'Starknet-Indemnify',
       description: 'Starknet-Indemnify is a full-stack insurance platform built with Next.js, Nest.js, and Cairo smart contracts. It enables users to purchase and manage policies with all underwriting logic and execution secured on the Starknet blockchain.',
       tags: ['DeFi', 'Web3', 'Next.js', 'Nest.js', 'Starknet', 'Cairo'] as ProjectTag[],
-      image: '/images/projects/orion.jpg',
+      image: 'https://firebasestorage.googleapis.com/v0/b/daz-course-by-seyi.appspot.com/o/starknet_indemnify.png?alt=media&token=6d5b62b4-69ef-42ab-bf88-bb4bf7e30330',
       githubUrl: 'https://github.com/Oluwaseyi89/starknet-indemnify-web.git',
-      liveUrl: 'https://starknet-indemnify.vercel.app',
+      liveUrl: 'https://starknet-indemnify-web.vercel.app',
       featured: true,
     },
     {
@@ -173,7 +176,7 @@ export const SOCIAL_LINKS = [
       title: 'NFTopia',
       description: 'NFTopia is a full-stack NFT platform built on Starknet. Powered by a Next.js frontend and Nest.js backend, it features a seamless marketplace and minting experience, with all transactions and ownership secured by Cairo smart contracts.',
       tags: ['DeFi', 'Web3', 'Next.js', 'Nest.js', 'Starknet', 'Cairo'] as ProjectTag[],
-      image: '/images/projects/justifyr.jpg',
+      image: 'https://firebasestorage.googleapis.com/v0/b/daz-course-by-seyi.appspot.com/o/nftopia.png?alt=media&token=2c69d468-2fc8-49e6-9ccd-b01924c00a8d',
       githubUrl: 'https://github.com/Oluwaseyi89/nftopia.git',
       liveUrl: 'https://nftopia-frontend.vercel.app',
       featured: true,
@@ -183,7 +186,7 @@ export const SOCIAL_LINKS = [
       title: 'Neuraplay',
       description: 'NeuraPlay is a game decision-making agent deployed on Google Cloud Run. The system features a React frontend and a Django backend that integrates Google\'s Gemini API for intelligent gameplay analysis and recommendations.',
       tags: ['Next.js', 'Node.js', 'PostgreSQL', 'Stripe', 'Redis'] as ProjectTag[],
-      image: '/images/projects/ecommerce.jpg',
+      image: null,
       githubUrl: 'https://github.com/Oluwaseyi89/neuraplay-cloudrun.git',
       liveUrl: 'https://neuraplay.vercel.app',
       featured: true,
@@ -193,7 +196,7 @@ export const SOCIAL_LINKS = [
       title: 'RoadSense',
       description: 'Scalable chat application with WebSocket connections, end-to-end encryption, and file sharing.',
       tags: ['WebSocket', 'React', 'Node.js', 'MongoDB', 'Redis', 'Docker'] as ProjectTag[],
-      image: '/images/projects/chat.jpg',
+      image: null,
       githubUrl: 'https://github.com/Oluwaseyi89/toyota-hack-the-track.git',
       liveUrl: 'https://road-sense-app.vercel.app',
       featured: true,
@@ -203,7 +206,7 @@ export const SOCIAL_LINKS = [
       title: 'DazCourse',
       description: 'DazCourse is a modern learning platform built with React and custom vanilla CSS, featuring a responsive UI and interactive lessons. Firebase handles real-time data storage, user authentication, and seamless content delivery for an engaging educational experience.',
       tags: ['AI', 'OpenAI', 'FastAPI', 'React', 'PostgreSQL', 'Docker'] as ProjectTag[],
-      image: '/images/projects/ai-content.jpg',
+      image: null,
       githubUrl: 'https://github.com/Oluwaseyi89/daz_course.git',
       liveUrl: 'https://daz-course.vercel.app',
       featured: true,
@@ -212,10 +215,10 @@ export const SOCIAL_LINKS = [
   
   // Contact form configuration
   export const CONTACT_CONFIG = {
-    formspreeId: 'your-formspree-id', // Replace with actual Formspree ID
-    email: 'you@example.com',
-    phone: '+1 (234) 567-8900',
-    location: 'Lagos, Nigeria',
+    formspreeId: 'your-formspree-id', 
+    email: 'isenewoephr2012@gmail.com',
+    phone: '+234 8020873072',
+    location: 'Kaduna, Nigeria',
     availability: 'Available for freelance & full-time opportunities',
   } as const
   
@@ -260,45 +263,45 @@ export const SOCIAL_LINKS = [
   export const EXPERIENCE = [
     {
       id: 1,
-      role: 'Senior Full-Stack Developer',
-      company: 'TechCorp Inc.',
-      period: '2022 - Present',
-      description: 'Leading development of blockchain-based solutions and scalable web applications.',
-      technologies: ['React', 'Node.js', 'Solidity', 'PostgreSQL', 'AWS'],
+      role: 'Full-Stack Developer',
+      company: 'Leadway Assurance Company Ltd.',
+      period: 'July, 2025 - Present',
+      description: 'Building full-stack applications using Next.js (frontend) & Nest.js (backend). Developing, containerizing, and deploying services with Docker. Focus on scalable architecture, CI/CD, and end-to-end feature ownership.',
+      technologies: ['Next.js', 'Node.js', 'Nest.js', 'PostgreSQL', 'Azure'],
     },
     {
       id: 2,
-      role: 'Blockchain Developer',
-      company: 'DeFi Startup',
-      period: '2021 - 2022',
-      description: 'Built smart contracts and decentralized applications on Ethereum and Stellar.',
-      technologies: ['Solidity', 'Web3.js', 'Ethereum', 'Stellar', 'React'],
+      role: 'Open Source Projects Maintainer',
+      company: 'OnlyDust',
+      period: '2024 - 2025',
+      description: 'Open-source project maintainer for Starknet ecosystem projects via the OnlyDust platform. Acted as codebase steward, guiding community contributions by reviewing pull requests, managing issues, and helping to define technical roadmaps. Ensured code quality, upheld project governance, and mentored contributors to foster a collaborative developer community.',
+      technologies: ['Cairo', 'Web3.js', 'Ethereum', 'Starknet', 'Stellar', 'React', 'Next.js', 'Nest.js', 'Django', 'Docker', 'GCP', 'Rust'],
     },
     {
       id: 3,
-      role: 'Software Engineer',
-      company: 'Enterprise Solutions',
-      period: '2019 - 2021',
+      role: 'Full-Stack Developer',
+      company: 'De-Extralucid Tech World',
+      period: '2018 - 2024',
       description: 'Developed and maintained enterprise applications using Java Spring and microservices.',
-      technologies: ['Java', 'Spring Boot', 'Docker', 'Kubernetes', 'Microservices'],
+      technologies: ['Java', 'Spring Boot', 'Next.js', 'Nuxt.js', 'Django', 'Docker', 'Kubernetes', 'Microservices'],
     },
   ] as const
   
   export const EDUCATION = [
     {
       id: 1,
-      degree: 'M.Sc. Computer Science',
-      institution: 'University of Technology',
-      period: '2017 - 2019',
-      description: 'Specialized in Distributed Systems and Blockchain Technology',
+      degree: 'AWS Solutions Architect',
+      institution: 'ALX Africa',
+      period: 'Jan. 2025 - Apr. 2025',
+      description: 'Graduated with Honors',
     },
     {
       id: 2,
-      degree: 'B.Sc. Software Engineering',
-      institution: 'National University',
-      period: '2013 - 2017',
-      description: 'Graduated with First Class Honors',
-    },
+      degree: 'AWS Cloud Practitioner',
+      institution: 'ALX Africa',
+      period: 'Apr. 2025 - Oct. 2025',
+      description: 'Graduated with Honors',
+    }
   ] as const
   
   // Skills categories

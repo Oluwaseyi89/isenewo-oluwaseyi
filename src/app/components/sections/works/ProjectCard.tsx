@@ -21,51 +21,61 @@ export default function ProjectCard({ project, index, onClick }: ProjectCardProp
       className="group relative bg-background rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-all duration-300"
     >
       {/* Project Image/Thumbnail */}
-      <div className="aspect-video bg-linear-to-br from-primary/10 to-primary-light/10 relative overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-5xl">💻</div>
-        </div>
-        
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-          <button
-            onClick={onClick}
-            className="p-3 rounded-full bg-white text-foreground hover:bg-primary hover:text-white transition-colors"
-            aria-label="View project details"
-          >
-            <Eye className="w-5 h-5" />
-          </button>
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-white text-foreground hover:bg-primary hover:text-white transition-colors"
-              aria-label="View code on GitHub"
-            >
-              <Github className="w-5 h-5" />
-            </a>
-          )}
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-white text-foreground hover:bg-primary hover:text-white transition-colors"
-              aria-label="View live demo"
-            >
-              <ExternalLink className="w-5 h-5" />
-            </a>
-          )}
-        </div>
-
-        {/* Featured badge */}
-        {project.featured && (
-          <div className="absolute top-4 left-4 px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">
-            Featured
+        <div className="aspect-video bg-linear-to-br from-primary/10 to-primary-light/10 relative overflow-hidden">
+          <div className="absolute inset-0">
+            {/* Image that fills the entire container */}
+           {project.image ? <img 
+              alt='project-thumbnail' 
+              src={project.image}
+              className="w-full h-full object-cover"
+            /> : 
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-5xl">💻</div>
+            </div>
+            
+            }
           </div>
-        )}
-      </div>
+          
+          {/* Hover overlay */}
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+            <button
+              onClick={onClick}
+              className="p-3 rounded-full bg-white text-foreground hover:bg-primary hover:text-white transition-colors"
+              aria-label="View project details"
+            >
+              <Eye className="w-5 h-5" />
+            </button>
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-white text-foreground hover:bg-primary hover:text-white transition-colors"
+                aria-label="View code on GitHub"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-white text-foreground hover:bg-primary hover:text-white transition-colors"
+                aria-label="View live demo"
+              >
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            )}
+          </div>
+
+          {/* Featured badge */}
+          {project.featured && (
+            <div className="absolute top-4 left-4 px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">
+              Featured
+            </div>
+          )}
+        </div>
 
       {/* Project Content */}
       <div className="p-6">

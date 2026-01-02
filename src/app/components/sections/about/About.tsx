@@ -43,7 +43,7 @@ export default function About() {
           transition={{ delay: 0.2 }}
           className="text-lg text-muted max-w-3xl mx-auto"
         >
-          Polyglot developer with expertise across the entire stack. Passionate 
+          Full-stack developer with expertise across the entire stack. Passionate 
           about building scalable applications, smart contracts, and contributing 
           to the Web3 ecosystem.
         </motion.p>

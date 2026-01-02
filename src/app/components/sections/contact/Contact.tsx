@@ -145,76 +145,51 @@ export default function Contact() {
           </div>
 
           {/* Social Links */}
-          {/* <div>
+          <div>
             <h4 className="text-lg font-semibold text-foreground mb-4">
               Connect on social media
             </h4>
-            <div className="flex gap-4">
-              {SOCIAL_LINKS.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 * index }}
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  className={`p-3 rounded-xl glass-effect ${link.color} transition-all`}
-                  aria-label={link.name}
-                >
-                  <span className="text-xl">{link.icon}</span>
-                </motion.a>
-              ))}
+
+            <div className="flex flex-wrap gap-4">
+              {SOCIAL_LINKS.map((link, index) => {
+                const Icon = SOCIAL_ICON_MAP[link.icon]
+
+                return (
+                  <motion.a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.name}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * index }}
+                    whileHover={{ scale: 1.1, y: -4 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`
+                      group
+                      p-3
+                      rounded-xl
+                      glass-effect
+                      border border-border
+                      transition-all
+                      ${link.color}
+                    `}
+                  >
+                    <Icon
+                      className="
+                        w-5 h-5
+                        text-muted-foreground
+                        group-hover:text-current
+                        transition-colors
+                      "
+                    />
+                  </motion.a>
+                )
+              })}
             </div>
-          </div> */}
-
-<div>
-  <h4 className="text-lg font-semibold text-foreground mb-4">
-    Connect on social media
-  </h4>
-
-  <div className="flex flex-wrap gap-4">
-    {SOCIAL_LINKS.map((link, index) => {
-      const Icon = SOCIAL_ICON_MAP[link.icon]
-
-      return (
-        <motion.a
-          key={link.name}
-          href={link.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={link.name}
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 * index }}
-          whileHover={{ scale: 1.1, y: -4 }}
-          whileTap={{ scale: 0.95 }}
-          className={`
-            group
-            p-3
-            rounded-xl
-            glass-effect
-            border border-border
-            transition-all
-            ${link.color}
-          `}
-        >
-          <Icon
-            className="
-              w-5 h-5
-              text-muted-foreground
-              group-hover:text-current
-              transition-colors
-            "
-          />
-        </motion.a>
-      )
-    })}
-  </div>
-</div>
+          </div>
 
         </motion.div>
 

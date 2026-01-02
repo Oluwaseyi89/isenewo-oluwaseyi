@@ -46,10 +46,10 @@ export default function Intro() {
             <div className="w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               {/* Avatar */}
               <div className="flex justify-center lg:justify-end">
-                <div className="w-48 h-48 sm:w-64 sm:h-64 lg:w-70 lg:h-70 overflow-hidden rounded-full shadow-lg">
+                <div className="w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 overflow-hidden rounded-full shadow-lg">
                   <img
                     alt="avatar"
-                    src="https://firebasestorage.googleapis.com/v0/b/daz-course-by-seyi.appspot.com/o/Eph_corporate_psp%20001.jpg?alt=media&token=87d00ed2-134a-4ebe-aebe-9d4be42479b2"
+                    src="https://firebasestorage.googleapis.com/v0/b/daz-course-by-seyi.appspot.com/o/seyi_psp_sm_trans.png?alt=media&token=29078595-7d13-4d84-8dac-8b28a9dc99a9"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -79,7 +79,7 @@ export default function Intro() {
                 transition={{ delay: 0.4 }}
                 className="text-xl text-muted max-w-2xl"
               >
-                Polyglot Full-Stack Developer & Blockchain Specialist crafting 
+                Full-Stack Developer & Blockchain Specialist crafting 
                 exceptional digital experiences with modern technologies.
               </motion.p>
             </div>

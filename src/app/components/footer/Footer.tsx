@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-border/50 mt-20">
       {/* Gradient background overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-transparent -z-10" />
+      <div className="absolute inset-0 bg-linear-to-t from-background via-background/90 to-transparent -z-10" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -47,10 +47,10 @@ export default function Footer() {
             <div className="flex items-center gap-2 text-sm text-muted">
               <Mail className="w-4 h-4" />
               <a 
-                href="mailto:hello@seyi.dev" 
+                href="mailto:isenewoephr2012@gmail.com" 
                 className="hover:text-primary transition-colors"
               >
-                hello@seyi.dev
+                isenewoephr2012@gmail.com
               </a>
             </div>
           </motion.div>
@@ -130,7 +130,7 @@ export default function Footer() {
           whileInView={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           viewport={{ once: true }}
-          className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent my-8"
+          className="w-full h-px bg-linear-to-r from-transparent via-border to-transparent my-8"
         />
 
         {/* Bottom Bar */}
