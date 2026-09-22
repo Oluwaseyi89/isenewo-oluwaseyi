@@ -49,7 +49,8 @@ export default function Intro() {
                 <div className="w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 overflow-hidden rounded-full shadow-lg">
                   <img
                     alt="avatar"
-                    src="https://oluwaseyi89-bucket.s3.us-east-1.amazonaws.com/seyi_psp_xs_trans.png"
+                    // src="https://oluwaseyi89-bucket.s3.us-east-1.amazonaws.com/seyi_psp_xs_trans.png"
+                    src="images/seyi_psp_xs_trans.png"
                     className="w-full h-full object-cover"
                   />
                 </div>
