@@ -62,7 +62,7 @@ export default function ProjectCard({ project, index, onClick }: ProjectCardProp
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-white text-foreground hover:bg-primary hover:text-white transition-colors"
-                aria-label="View live demo"
+                aria-label={project.liveLabel}
               >
                 <ExternalLink className="w-5 h-5" />
               </a>

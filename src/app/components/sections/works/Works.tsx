@@ -300,7 +300,7 @@ export default function Works() {
                         className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-light transition-colors"
                       >
                         <ExternalLink className="w-5 h-5" />
-                        Live Demo
+                        {selectedProject.liveLabel}
                       </a>
                     )}
                   </div>

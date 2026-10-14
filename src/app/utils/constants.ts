@@ -59,6 +59,10 @@ const ALL_PROJECT_TAGS = [
   'Stellar',
   'Soroban',
   'Distributed Systems',
+  'Azure',
+  'PHP',
+  'MySQL',
+  'Client work',
 ] as const
 
 export type ProjectTag = typeof ALL_PROJECT_TAGS[number]
@@ -151,6 +155,25 @@ export const SKILL_CATEGORIES = [
 export const PROJECTS = [
   {
     id: 1,
+    title: 'Leadway Life Assurance APIs',
+    role: 'Leadway Assurance · Backend Engineer (2025 – present)',
+    description:
+      'Backend APIs for Leadway Assurance’s Life Assurance business application, powering the broker and client portals that manage policies and claims.',
+    highlights: [
+      'REST APIs for high-volume policy and claims workflows, sustaining 99.9% API reliability.',
+      'Authentication, role-based access control and audit logging built to financial-services compliance requirements.',
+      'Query tuning and caching to cut response times; Azure CI/CD with zero-downtime deployments.',
+      'The portals are internal to Leadway, so the link goes to the company site rather than a demo.',
+    ],
+    tags: ['Node.js', 'Nest.js', 'TypeScript', 'PostgreSQL', 'Azure', 'Client work'] as ProjectTag[],
+    image: 'images/leadway_preview.png',
+    githubUrl: '',
+    liveUrl: 'https://www.leadway.com/',
+    liveLabel: 'Visit Leadway',
+    featured: true,
+  },
+  {
+    id: 2,
     title: 'Global Rate Limiter as a Service',
     role: 'Personal project',
     description:
@@ -164,10 +187,11 @@ export const PROJECTS = [
     image: '',
     githubUrl: 'https://github.com/Oluwaseyi89/global-rate-limiter',
     liveUrl: '',
+    liveLabel: 'Live demo',
     featured: true,
   },
   {
-    id: 2,
+    id: 3,
     title: 'Parcel App',
     role: 'Personal project',
     description:
@@ -181,10 +205,11 @@ export const PROJECTS = [
     image: 'images/parcel_app_preview.png',
     githubUrl: 'https://github.com/Oluwaseyi89/parcel-app',
     liveUrl: 'https://parcel-app-web.vercel.app',
+    liveLabel: 'Live demo',
     featured: true,
   },
   {
-    id: 3,
+    id: 4,
     title: 'Funkey Grab & Bite',
     role: 'Personal project',
     description:
@@ -198,10 +223,65 @@ export const PROJECTS = [
     image: 'images/funkey_bite_preview.png',
     githubUrl: 'https://github.com/Oluwaseyi89/funkey-grab-and-bite',
     liveUrl: 'https://funkey-bite-web.vercel.app',
+    liveLabel: 'Live demo',
     featured: true,
   },
   {
-    id: 4,
+    id: 5,
+    title: 'KAD ICT Hub Platform',
+    role: 'De-Extralucid client · Backend Engineer',
+    description:
+      'Platform for Kaduna State’s innovation hub, which has trained 20,000+ residents and provides software, training and startup acceleration services.',
+    highlights: [
+      'Backend for user accounts, training-programme and course registration, and intake management.',
+      'APIs for startup applications and event registration.',
+      'Relational schema design and REST APIs consumed by the web front end.',
+    ],
+    tags: ['Client work'] as ProjectTag[],
+    image: 'images/kadhub_preview.png',
+    githubUrl: '',
+    liveUrl: 'https://www.kadhub.ng/',
+    liveLabel: 'Visit live site',
+    featured: false,
+  },
+  {
+    id: 6,
+    title: 'Digital Kaduna',
+    role: 'De-Extralucid client · Backend Engineer',
+    description:
+      'Website for the Gates Foundation-funded digital lab run by DFS Lab and CoLab, building an inclusive digital financial-services ecosystem in Kaduna.',
+    highlights: [
+      'Content backend for publishing research reports and blog posts.',
+      'Event and hackathon registration flows, plus newsletter subscriptions.',
+      'Custom WordPress/PHP backend work on a MySQL database.',
+    ],
+    tags: ['PHP', 'MySQL', 'Client work'] as ProjectTag[],
+    image: 'images/digital_kaduna_preview.png',
+    githubUrl: '',
+    liveUrl: 'https://digitalkaduna.com/',
+    liveLabel: 'Visit live site',
+    featured: false,
+  },
+  {
+    id: 7,
+    title: 'Kadahive Member Portal',
+    role: 'De-Extralucid client · Backend Engineer',
+    description:
+      'Member portal for Kadahive Innovation & Tech Hub, set up by the Bank of Industry and Kaduna State Government to support startups and digital skills.',
+    highlights: [
+      'Member accounts, authentication and personalised dashboards.',
+      'Co-working space booking calendar and event registration.',
+      'Resource library and billing/payments for member subscriptions.',
+    ],
+    tags: ['Client work'] as ProjectTag[],
+    image: 'images/kadahivehub_preview.png',
+    githubUrl: '',
+    liveUrl: 'https://kadahivehub.com/',
+    liveLabel: 'Visit live site',
+    featured: false,
+  },
+  {
+    id: 8,
     title: 'Infinite Canvas',
     role: 'Hackathon project (Vega IT)',
     description:
@@ -215,10 +295,11 @@ export const PROJECTS = [
     image: '',
     githubUrl: 'https://github.com/Oluwaseyi89/real-time-canvas',
     liveUrl: '',
+    liveLabel: 'Live demo',
     featured: false,
   },
   {
-    id: 5,
+    id: 9,
     title: 'Road Sense Analytics',
     role: 'Hackathon project (Toyota GR Cup: Hack the Track)',
     description:
@@ -232,10 +313,11 @@ export const PROJECTS = [
     image: '',
     githubUrl: 'https://github.com/Oluwaseyi89/toyota-hack-the-track',
     liveUrl: 'https://road-sense-app.vercel.app',
+    liveLabel: 'Live demo',
     featured: false,
   },
   {
-    id: 6,
+    id: 10,
     title: 'Queue-as-a-Service',
     role: 'Personal project (in progress)',
     description:
@@ -249,10 +331,11 @@ export const PROJECTS = [
     image: '',
     githubUrl: 'https://github.com/Oluwaseyi89/queue-as-a-service',
     liveUrl: '',
+    liveLabel: 'Live demo',
     featured: false,
   },
   {
-    id: 7,
+    id: 11,
     title: 'CarbonScribe',
     role: 'Core contributor · 24 merged PRs',
     description:
@@ -266,6 +349,7 @@ export const PROJECTS = [
     image: 'images/carbon_scribe_preview.png',
     githubUrl: 'https://github.com/CarbonScribe/carbon-scribe',
     liveUrl: 'https://carbon-scribe-farmers-portal.vercel.app/',
+    liveLabel: 'Live demo',
     featured: false,
   },
 ] as const
