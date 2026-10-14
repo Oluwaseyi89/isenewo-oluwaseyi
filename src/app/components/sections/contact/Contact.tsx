@@ -133,6 +133,13 @@ export default function Contact() {
                 <Download className="w-4 h-4" />
                 Download CV
               </a>
+              <a
+                href={PROFILE.resumeDocxUrl}
+                download
+                className="text-sm text-muted hover:text-primary link-underline transition-colors"
+              >
+                Word (.docx)
+              </a>
               <div className="flex items-center gap-1">
                 {SOCIAL_LINKS.filter((l) => l.icon !== 'mail').map((link) => {
                   const Icon = SOCIAL_ICON_MAP[link.icon]

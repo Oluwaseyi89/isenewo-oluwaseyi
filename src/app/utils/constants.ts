@@ -22,7 +22,8 @@ export const PROFILE = {
   availability:
     'Open to backend engineering roles: remote, or on-site/relocation with visa sponsorship.',
   location: 'Kaduna, Nigeria',
-  resumeUrl: '/Isenewo_Oluwaseyi_CV_for_Software_Dev.pdf',
+  resumeUrl: '/Isenewo_Oluwaseyi_Backend_Engineer_CV.pdf',
+  resumeDocxUrl: '/Isenewo_Oluwaseyi_Backend_Engineer_CV.docx',
   siteUrl: 'https://isenewo-oluwaseyi.vercel.app',
 } as const
 
