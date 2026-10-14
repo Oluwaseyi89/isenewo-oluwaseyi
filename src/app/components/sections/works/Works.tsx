@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, Github, Filter, X } from 'lucide-react'
-import { PROJECTS } from '@/app/utils/constants'
+import { OPEN_SOURCE, PROJECTS } from '@/app/utils/constants'
 import ProjectCard from './ProjectCard'
 import { 
   FilterType, 
@@ -61,8 +61,9 @@ export default function Works() {
           transition={{ delay: 0.2 }}
           className="text-lg text-muted max-w-3xl mx-auto"
         >
-          A selection of projects showcasing my expertise in full-stack development, 
-          blockchain, and modern web technologies.
+          Backend systems I have designed and built: APIs, payments, real-time
+          services and distributed infrastructure. Open the details for the
+          engineering decisions behind each one.
         </motion.p>
       </div>
 
@@ -153,6 +154,54 @@ export default function Works() {
         </motion.div>
       )}
 
+      {/* Open-Source Contributions */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="space-y-6 pt-8"
+      >
+        <div className="text-center space-y-3">
+          <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
+            <span className="text-primary">{OPEN_SOURCE.mergedPrs}</span> merged open-source pull requests
+          </h3>
+          <p className="text-muted max-w-3xl mx-auto">
+            Backend and smart-contract work merged into production codebases across the
+            Stellar and Starknet ecosystems. A few highlights:
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {OPEN_SOURCE.highlights.map((item) => (
+            <a
+              key={item.project}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block p-6 rounded-2xl border border-border bg-background hover:border-primary/50 transition-colors group"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <h4 className="text-lg font-semibold text-foreground">{item.project}</h4>
+                <ExternalLink className="w-4 h-4 text-primary" />
+              </div>
+              <p className="text-muted mt-2">{item.work}</p>
+            </a>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <a
+            href={OPEN_SOURCE.allPrsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background rounded-lg font-medium hover:bg-foreground/90 transition-colors"
+          >
+            <Github className="w-5 h-5" />
+            See all merged PRs
+          </a>
+        </div>
+      </motion.div>
+
       {/* Project Modal */}
       <AnimatePresence>
         {selectedProject && (
@@ -178,6 +227,9 @@ export default function Works() {
                     <h3 className="text-2xl font-bold text-foreground">
                       {selectedProject.title}
                     </h3>
+                    <p className="text-sm font-medium text-primary mt-1">
+                      {selectedProject.role}
+                    </p>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {selectedProject.tags.map((tag) => (
                         <span
@@ -202,7 +254,7 @@ export default function Works() {
                 <div className="space-y-6 rounded-xl">
                   <div className="aspect-video bg-linear-to-br from-primary/20 to-primary-light/20 rounded-xl flex items-center justify-center">
                     {selectedProject.image ? <img 
-                      alt='project-thumbnail' 
+                      alt={`${selectedProject.title} preview`} 
                       src={selectedProject.image}
                       className="w-full h-full rounded-xl object-cover"
                     /> : 
@@ -216,6 +268,14 @@ export default function Works() {
                     <p className="text-lg text-foreground">
                       {selectedProject.description}
                     </p>
+                    <h4 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                      Engineering highlights
+                    </h4>
+                    <ul className="space-y-2 list-disc pl-5 text-muted">
+                      {selectedProject.highlights.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
                   </div>
 
                   {/* Links */}

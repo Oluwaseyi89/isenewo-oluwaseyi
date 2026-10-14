@@ -1,89 +1,68 @@
 import type { SocialIconKey } from './social-icons'
 
-
-
-// Navigation items
 export const NAV_ITEMS = [
-    { 
-      id: 'intro', 
-      label: 'Intro',
-      icon: '🏠' // You can replace with actual icons later
-    },
-    { 
-      id: 'about', 
-      label: 'About',
-      icon: '👤'
-    },
-    { 
-      id: 'works', 
-      label: 'Works',
-      icon: '💼'
-    },
-    { 
-      id: 'contact', 
-      label: 'Contact',
-      icon: '📱'
-    },
-  ] as const;
+  { id: 'intro', label: 'Intro' },
+  { id: 'about', label: 'About' },
+  { id: 'works', label: 'Works' },
+  { id: 'contact', label: 'Contact' },
+] as const
 
+export type NavItem = typeof NAV_ITEMS[number]
+export type SectionId = NavItem['id']
 
-  // Add this with other exports in constants.ts
+export const PROFILE = {
+  name: 'Isenewo Oluwaseyi Ephraim',
+  role: 'Backend Engineer',
+  headline: 'Backend Engineer · Node.js, Go & Python · AWS Certified Solutions Architect',
+  summary:
+    'I design and build backend systems for financial services and commerce: APIs, payments, real-time services and distributed infrastructure, shipped to the cloud with CI/CD.',
+  about:
+    'Backend engineer with 8 years of experience building APIs and services for insurance, commerce and public-sector platforms. I currently build the APIs behind Leadway Assurance’s Life Assurance business application and maintain NFTopia, an open-source NFT platform, where I review contributions from developers around the world.',
+  availability:
+    'Open to backend engineering roles: remote, or on-site/relocation with visa sponsorship.',
+  location: 'Kaduna, Nigeria',
+  resumeUrl: '/Isenewo_Oluwaseyi_CV_for_Software_Dev.pdf',
+  siteUrl: 'https://isenewo-oluwaseyi.vercel.app',
+} as const
 
-// Extract all unique tags from projects (type-safe)
+export const HERO_STATS = [
+  { label: 'Years building backends', value: '8+' },
+  { label: 'Merged open-source PRs', value: '290+' },
+  { label: 'AWS certifications', value: '2' },
+  { label: 'API reliability at Leadway', value: '99.9%' },
+] as const
+
+export const HERO_LANGUAGES = ['Node', 'Go', 'Py', 'AWS'] as const
+
 const ALL_PROJECT_TAGS = [
-    'Stellar',
-    'Soroban', 
-    'Blockchain',
-    'IoT',
-    'TypeScript',
-    'Next.js',
-    'Nuxt.js',
-    'Nest.js',
-    'DeFi',
-    'Web3',
-    'React',
-    'React-Native',
-    'Django',
-    'Springboot',
-    'Paystack',
-    'Solidity',
-    'Ethereum',
-    'Starknet',
-    'Stellar',
-    'Cairo',
-    'Polygon',
-    'AI',
-    'Rust',
-    'Python',
-    'Java',
-    'Golang',
-    'Gin',
-    'Documentation',
-    'Automation',
-    'Node.js',
-    'PostgreSQL',
-    'Stripe',
-    'Redis',
-    'WebSocket',
-    'MongoDB',
-    'Docker',
-    'GCP',
-    'AWS',
-    'Azure',
-    'OpenAI',
-    'FastAPI',
-  ] as const
-  
-  export type ProjectTag = typeof ALL_PROJECT_TAGS[number]
-  
-  // Export as constant
-  export { ALL_PROJECT_TAGS }
-  
-  export type NavItem = typeof NAV_ITEMS[number]
-  export type SectionId = NavItem['id']
-  
+  'Node.js',
+  'TypeScript',
+  'Nest.js',
+  'Go',
+  'Gin',
+  'Python',
+  'Django',
+  'FastAPI',
+  'Java',
+  'Spring Boot',
+  'Rust',
+  'PostgreSQL',
+  'Redis',
+  'WebSocket',
+  'Celery',
+  'Docker',
+  'Terraform',
+  'AWS',
+  'Paystack',
+  'Machine Learning',
+  'MCP',
+  'Stellar',
+  'Soroban',
+  'Distributed Systems',
+] as const
 
-
+export type ProjectTag = typeof ALL_PROJECT_TAGS[number]
+export { ALL_PROJECT_TAGS }
 
 export const SOCIAL_LINKS = [
   {
@@ -117,274 +96,301 @@ export const SOCIAL_LINKS = [
   color: string
 }>
 
-  
-  // Tech stack with icons/colors
-  export const TECH_STACK = {
-    languages: [
-      { name: 'Java', level: 'Advanced', color: 'bg-red-500/20 text-red-600' },
-      { name: 'JavaScript', level: 'Expert', color: 'bg-yellow-500/20 text-yellow-600' },
-      { name: 'Python', level: 'Advanced', color: 'bg-blue-500/20 text-blue-600' },
-      { name: 'Rust', level: 'Intermediate', color: 'bg-orange-500/20 text-orange-600' },
-      { name: 'C++', level: 'Advanced', color: 'bg-blue-700/20 text-blue-700' },
-      { name: 'Go', level: 'Intermediate', color: 'bg-cyan-500/20 text-cyan-600' },
-      { name: 'Solidity', level: 'Intermediate', color: 'bg-gray-700/20 text-gray-700' },
-      { name: 'Cairo', level: 'Intermediate', color: 'bg-purple-500/20 text-purple-600' },
+export const TECH_STACK = {
+  languages: [
+    { name: 'Node.js (TypeScript)', color: 'bg-green-500/20 text-green-600' },
+    { name: 'Go', color: 'bg-cyan-500/20 text-cyan-600' },
+    { name: 'Python', color: 'bg-blue-500/20 text-blue-600' },
+    { name: 'Java', color: 'bg-red-500/20 text-red-600' },
+    { name: 'Rust', color: 'bg-orange-500/20 text-orange-600' },
+  ],
+  frameworks: [
+    { name: 'Nest.js', color: 'bg-red-600/20 text-red-700' },
+    { name: 'Express', color: 'bg-gray-500/20 text-gray-600' },
+    { name: 'Gin', color: 'bg-cyan-600/20 text-cyan-600' },
+    { name: 'Django / DRF', color: 'bg-green-700/20 text-green-700' },
+    { name: 'FastAPI', color: 'bg-teal-500/20 text-teal-600' },
+    { name: 'Spring Boot', color: 'bg-green-600/20 text-green-600' },
+    { name: 'Axum', color: 'bg-orange-600/20 text-orange-700' },
+  ],
+  databases: [
+    { name: 'PostgreSQL', color: 'bg-blue-600/20 text-blue-700' },
+    { name: 'Redis', color: 'bg-red-600/20 text-red-700' },
+    { name: 'MySQL', color: 'bg-orange-500/20 text-orange-600' },
+    { name: 'MongoDB', color: 'bg-green-500/20 text-green-600' },
+  ],
+  tools: [
+    { name: 'AWS', color: 'bg-orange-500/20 text-orange-600' },
+    { name: 'Azure', color: 'bg-blue-500/20 text-blue-600' },
+    { name: 'Docker', color: 'bg-blue-500/20 text-blue-600' },
+    { name: 'Terraform', color: 'bg-purple-500/20 text-purple-600' },
+    { name: 'Kubernetes', color: 'bg-blue-700/20 text-blue-800' },
+    { name: 'GitHub Actions', color: 'bg-gray-500/20 text-gray-600' },
+  ],
+} as const
+
+export const SKILL_CATEGORIES = [
+  {
+    title: 'API & Service Design',
+    skills: ['REST', 'GraphQL', 'WebSockets', 'Auth & RBAC', 'Payments integration'],
+  },
+  {
+    title: 'Data & Reliability',
+    skills: ['Schema design', 'Query optimisation', 'Caching', 'Queues & background jobs', 'Rate limiting', 'Audit logging'],
+  },
+  {
+    title: 'Cloud & Delivery',
+    skills: ['AWS (ECS, Lambda, RDS, S3)', 'Azure', 'Terraform', 'Docker', 'CI/CD', 'Observability'],
+  },
+  {
+    title: 'Blockchain (bonus)',
+    skills: ['Stellar / Soroban', 'Starknet / Cairo', 'Smart-contract integration'],
+  },
+] as const
+
+export const PROJECTS = [
+  {
+    id: 1,
+    title: 'Global Rate Limiter as a Service',
+    role: 'Personal project',
+    description:
+      'Central rate limiting for microservices that share strict third-party API quotas, built to stay accurate under concurrency and available when Redis fails.',
+    highlights: [
+      'Sliding-window algorithm on Redis sorted sets, with atomic Lua scripts so concurrent requests cannot race.',
+      'High availability: Redis primary-replica, a 3-state circuit breaker, local-cache fallback and 3 instances behind an NGINX least-conn load balancer.',
+      'P95/P99 latency analytics, async audit logging through a worker pool, graceful shutdown, and liveness/readiness probes.',
     ],
-    frameworks: [
-      { name: 'Next.js', color: 'bg-black/20 text-black dark:bg-white/20 dark:text-gray' },
-      { name: 'Nuxt.js', color: 'bg-green-700/20 text-green-600' },
-      { name: 'React', color: 'bg-cyan-500/20 text-cyan-600' },
-      { name: 'Node.js', color: 'bg-green-500/20 text-green-600' },
-      { name: 'Express', color: 'bg-gray-500/20 text-gray-600' },
-      { name: 'Django', color: 'bg-green-700/20 text-green-700' },
-      { name: 'Spring Boot', color: 'bg-green-600/20 text-green-600' },
-      { name: 'Gin', color: 'bg-cyan-600/20 text-cyan-600' },
+    tags: ['Go', 'Redis', 'Docker', 'Distributed Systems'] as ProjectTag[],
+    image: '',
+    githubUrl: 'https://github.com/Oluwaseyi89/global-rate-limiter',
+    liveUrl: '',
+    featured: true,
+  },
+  {
+    id: 2,
+    title: 'Parcel App',
+    role: 'Personal project',
+    description:
+      'Multi-vendor commerce and delivery platform covering checkout, parcel dispatch, courier workflows and vendor operations across web, admin and mobile clients.',
+    highlights: [
+      'Django/DRF core API with Celery and Redis background jobs, and cookie-session auth shared by web, admin and mobile clients.',
+      'Separate Spring Boot payment service integrating Paystack, with server-side transaction verification.',
+      'Infrastructure as code with Terraform, deployed to AWS ECS Fargate.',
     ],
-    databases: [
-      { name: 'PostgreSQL', color: 'bg-blue-600/20 text-blue-700' },
-      { name: 'MongoDB', color: 'bg-green-500/20 text-green-600' },
-      { name: 'Redis', color: 'bg-red-600/20 text-red-700' },
-      { name: 'MySQL', color: 'bg-orange-500/20 text-orange-600' },
+    tags: ['Python', 'Django', 'Java', 'Spring Boot', 'PostgreSQL', 'Celery', 'Paystack', 'Terraform', 'AWS'] as ProjectTag[],
+    image: 'images/parcel_app_preview.png',
+    githubUrl: 'https://github.com/Oluwaseyi89/parcel-app',
+    liveUrl: 'https://parcel-app-web.vercel.app',
+    featured: true,
+  },
+  {
+    id: 3,
+    title: 'Funkey Grab & Bite',
+    role: 'Personal project',
+    description:
+      'Food-commerce operations platform with ordering, catering requests, programmable promotions and an admin command centre, powered by a Go API.',
+    highlights: [
+      'Go/Gin API organised by business domain, with PostgreSQL and Redis.',
+      'Real-time event contract that pushes order updates to the admin dashboard.',
+      'AWS infrastructure defined in Terraform.',
     ],
-    tools: [
-      { name: 'Docker', color: 'bg-blue-500/20 text-blue-600' },
-      { name: 'Kubernetes', color: 'bg-blue-700/20 text-blue-800' },
-      { name: 'AWS', color: 'bg-orange-500/20 text-orange-600' },
-      { name: 'Git', color: 'bg-orange-600/20 text-orange-700' },
-      { name: 'CI/CD', color: 'bg-purple-500/20 text-purple-600' },
+    tags: ['Go', 'Gin', 'PostgreSQL', 'Redis', 'Terraform', 'AWS'] as ProjectTag[],
+    image: 'images/funkey_bite_preview.png',
+    githubUrl: 'https://github.com/Oluwaseyi89/funkey-grab-and-bite',
+    liveUrl: 'https://funkey-bite-web.vercel.app',
+    featured: true,
+  },
+  {
+    id: 4,
+    title: 'Infinite Canvas',
+    role: 'Hackathon project (Vega IT)',
+    description:
+      'Real-time collaborative whiteboard with live presence, offline sync and full session replay, backed by a Go WebSocket service.',
+    highlights: [
+      'Go/Gin WebSocket service handling multi-user sessions, with Redis for live state and PostgreSQL for persistence.',
+      'Operation log that supports offline queueing and “time travel” replay of an entire session.',
+      'Separate CI pipelines for the service and the web client.',
     ],
-  } as const
-  
-  // Sample projects data
-  export const PROJECTS = [
+    tags: ['Go', 'Gin', 'WebSocket', 'Redis', 'PostgreSQL'] as ProjectTag[],
+    image: '',
+    githubUrl: 'https://github.com/Oluwaseyi89/real-time-canvas',
+    liveUrl: '',
+    featured: false,
+  },
+  {
+    id: 5,
+    title: 'Road Sense Analytics',
+    role: 'Hackathon project (Toyota GR Cup: Hack the Track)',
+    description:
+      'Real-time motorsport telemetry platform that streams live race data and applies ML models for tire wear, fuel and pit-stop strategy.',
+    highlights: [
+      'Django Channels service exposing telemetry REST APIs and WebSocket streams.',
+      'FastAPI analytics engine and scikit-learn models for tire degradation, fuel burn and pit timing.',
+      'Simulation engine that replays race data for live dashboards.',
+    ],
+    tags: ['Python', 'Django', 'FastAPI', 'WebSocket', 'Machine Learning'] as ProjectTag[],
+    image: '',
+    githubUrl: 'https://github.com/Oluwaseyi89/toyota-hack-the-track',
+    liveUrl: 'https://road-sense-app.vercel.app',
+    featured: false,
+  },
+  {
+    id: 6,
+    title: 'Queue-as-a-Service',
+    role: 'Personal project (in progress)',
+    description:
+      'Message queue for AI-agent workloads, exposed over the Model Context Protocol (MCP), with durable delivery and strict engineering standards.',
+    highlights: [
+      'Cargo workspace split into types, core engine (WAL persistence, delivery semantics), server and client SDK.',
+      'API-key and JWT authentication on the MCP HTTP transport.',
+      'Prometheus and Grafana dev stack; CI enforces fmt, clippy (deny warnings), tests and cargo-deny.',
+    ],
+    tags: ['Rust', 'MCP', 'Distributed Systems', 'Docker'] as ProjectTag[],
+    image: '',
+    githubUrl: 'https://github.com/Oluwaseyi89/queue-as-a-service',
+    liveUrl: '',
+    featured: false,
+  },
+  {
+    id: 7,
+    title: 'CarbonScribe',
+    role: 'Core contributor · 24 merged PRs',
+    description:
+      'Open-source Stellar platform that tokenises ecosystem services into carbon credits that corporations can buy and retire instantly.',
+    highlights: [
+      'Set up the Go/Gin backend service and refactored the project-portal auth service.',
+      'Built CI workflows across the monorepo and deployed the carbon-asset factory contract.',
+      'Reviewed and corrected community contributions during contribution waves.',
+    ],
+    tags: ['Go', 'Gin', 'TypeScript', 'Stellar', 'Soroban'] as ProjectTag[],
+    image: 'images/carbon_scribe_preview.png',
+    githubUrl: 'https://github.com/CarbonScribe/carbon-scribe',
+    liveUrl: 'https://carbon-scribe-farmers-portal.vercel.app/',
+    featured: false,
+  },
+] as const
+
+export const OPEN_SOURCE = {
+  mergedPrs: '290+',
+  allPrsUrl:
+    'https://github.com/pulls?q=is%3Apr+author%3AOluwaseyi89+is%3Amerged+-user%3AOluwaseyi89',
+  highlights: [
     {
-      id: 1,
-      title: 'ParcelApp',
-      description: 'Parcel App is an end-to-end commerce solution enabling businesses to manage sales, fulfillment, delivery, and customer service—all integrated into a single platform.',
-      tags: ['Next.js', 'Django', 'Springboot', 'Python', 'Java', 'TypeScript', 'React-Native', 'Paystack'] as ProjectTag[],
-      // image: 'https://oluwaseyi89-bucket.s3.us-east-1.amazonaws.com/parcel_app_preview.png',
-      image: 'images/parcel_app_preview.png',
-      githubUrl: 'https://github.com/Oluwaseyi89/parcel-app.git',
-      liveUrl: 'https://parcel-app-web.vercel.app',
-      featured: true,
-    },
-    {
-      id: 2,
-      title: 'Funkey-Grab-and-Bite',
-      description: 'Funkey Grab & Bite is a fast-food business offering quick take-out meals and lunch packs, including chips & chicken, noodles, shawarma, drinks, and soup & food bowls (pre-order). We also provide reliable indoor and outdoor catering services for events and gatherings.',
-      tags: ['Nuxt.js', 'Gin', 'Golang', 'TypeScript'] as ProjectTag[],
-      // image: 'https://oluwaseyi89-bucket.s3.us-east-1.amazonaws.com/funkey_bite_preview.png',
-      image: './images/funkey_bite_preview.png',
-      githubUrl: 'https://github.com/Oluwaseyi89/funkey-grab-and-bite.git',
-      liveUrl: 'https://funkey-bite-web.vercel.app',
-      featured: true,
-    },
-    {
-      id: 3,
-      title: 'CarbonScribe',
-      description: 'CarbonScribe is a full-stack Stellar platform that tokenizes ecosystem services into Dynamic Carbon Credits. Built with Next.js, Nest.js, and Soroban smart contracts, it allows corporations to purchase and instantly retire credits with real-time pricing based on live satellite and IoT verification data.',
-      tags: ['DeFi', 'Web3', 'Next.js', 'Nest.js', 'Stellar', 'Rust', 'Golang', 'Gin'] as ProjectTag[],
-      // image: 'https://oluwaseyi89-bucket.s3.us-east-1.amazonaws.com/carbon_scribe_preview.png',
-      image: './images/carbon_scribe_preview.png',
-      githubUrl: 'https://github.com/CarbonScribe/carbon-scribe.git',
-      liveUrl: 'https://carbon-scribe-farmers-portal.vercel.app/',
-      featured: true,
-    },
-    // {
-    //   id: 3,
-    //   title: 'NFTopia',
-    //   description: 'NFTopia is a full-stack NFT platform built on Starknet. Powered by a Next.js frontend and Nest.js backend, it features a seamless marketplace and minting experience, with all transactions and ownership secured by Cairo smart contracts.',
-    //   tags: ['DeFi', 'Web3', 'Next.js', 'Nest.js', 'Starknet', 'Cairo'] as ProjectTag[],
-    //   image: 'https://firebasestorage.googleapis.com/v0/b/daz-course-by-seyi.appspot.com/o/nftopia.png?alt=media&token=2c69d468-2fc8-49e6-9ccd-b01924c00a8d',
-    //   githubUrl: 'https://github.com/Oluwaseyi89/nftopia.git',
-    //   liveUrl: 'https://nftopia-frontend.vercel.app',
-    //   featured: true,
-    // },
-    // {
-    //   id: 4,
-    //   title: 'Starknet-Indemnify',
-    //   description: 'Starknet-Indemnify is a full-stack insurance platform built with Next.js, Nest.js, and Cairo smart contracts. It enables users to purchase and manage policies with all underwriting logic and execution secured on the Starknet blockchain.',
-    //   tags: ['DeFi', 'Web3', 'Next.js', 'Nest.js', 'Starknet', 'Cairo'] as ProjectTag[],
-    //   image: 'https://firebasestorage.googleapis.com/v0/b/daz-course-by-seyi.appspot.com/o/starknet_indemnify.png?alt=media&token=6d5b62b4-69ef-42ab-bf88-bb4bf7e30330',
-    //   githubUrl: 'https://github.com/Oluwaseyi89/starknet-indemnify-web.git',
-    //   liveUrl: 'https://starknet-indemnify-web.vercel.app',
-    //   featured: true,
-    // },
-    // {
-    //   id: 4,
-    //   title: 'Neuraplay',
-    //   description: 'NeuraPlay is a game decision-making agent initially deployed on Google Cloud Run. The system features a React frontend and a Django backend that integrates Google\'s Gemini API for intelligent gameplay analysis and recommendations.',
-    //   tags: ['Next.js', 'Node.js', 'PostgreSQL', 'Stripe', 'Redis'] as ProjectTag[],
-    //   image: 'https://firebasestorage.googleapis.com/v0/b/daz-course-by-seyi.appspot.com/o/Neuraplay_desktop_view.png?alt=media&token=eaf6facf-05f8-4983-bdc6-5898329c1532',
-    //   githubUrl: 'https://github.com/Oluwaseyi89/neuraplay-cloudrun.git',
-    //   liveUrl: 'https://neuraplay-app.vercel.app',
-    //   featured: true,
-    // },
-    // {
-    //   id: 5,
-    //   title: 'RoadSense',
-    //   description: 'Scalable chat application with WebSocket connections, end-to-end encryption, and file sharing.',
-    //   tags: ['WebSocket', 'React', 'Node.js', 'MongoDB', 'Redis', 'Docker'] as ProjectTag[],
-    //   image: null,
-    //   githubUrl: 'https://github.com/Oluwaseyi89/toyota-hack-the-track.git',
-    //   liveUrl: 'https://road-sense-app.vercel.app',
-    //   featured: true,
-    // },
-    // {
-    //   id: 5,
-    //   title: 'DazCourse',
-    //   description: 'DazCourse is a modern learning platform built with React and custom vanilla CSS, featuring a responsive UI and interactive lessons. Firebase handles real-time data storage, user authentication, and seamless content delivery for an engaging educational experience.',
-    //   tags: ['AI', 'OpenAI', 'FastAPI', 'React', 'PostgreSQL', 'Docker'] as ProjectTag[],
-    //   image: 'https://firebasestorage.googleapis.com/v0/b/daz-course-by-seyi.appspot.com/o/daz_course.png?alt=media&token=915cd940-a200-4445-b2b1-7f011cfcd041',
-    //   githubUrl: 'https://github.com/Oluwaseyi89/daz_course.git',
-    //   liveUrl: 'https://daz-course.vercel.app',
-    //   featured: true,
-    // },
-  ] as const
-  
-  // Contact form configuration
-  export const CONTACT_CONFIG = {
-    formspreeId: 'your-formspree-id', 
-    email: 'isenewoephr2012@gmail.com',
-    phone: '+234 8020873072',
-    location: 'Kaduna, Nigeria',
-    availability: 'Available for freelance & full-time opportunities',
-  } as const
-  
-  // Animation delays
-  export const ANIMATION_DELAYS = {
-    header: 0.1,
-    intro: 0.2,
-    about: 0.3,
-    works: 0.4,
-    contact: 0.5,
-  } as const
-  
-  // Color palette for the theme
-  export const COLOR_PALETTE = {
-    navy: {
-      light: '#1e3a8a',
-      dark: '#0a192f',
-    },
-    sky: {
-      light: '#3b82f6',
-      dark: '#60a5fa',
-    },
-    cyan: {
-      light: '#06b6d4',
-      dark: '#22d3ee',
-    },
-    gray: {
-      50: '#f8fafc',
-      100: '#f1f5f9',
-      200: '#e2e8f0',
-      300: '#cbd5e1',
-      400: '#94a3b8',
-      500: '#64748b',
-      600: '#475569',
-      700: '#334155',
-      800: '#1e293b',
-      900: '#0f172a',
-    },
-  } as const
-  
-  // Education and experience
-  export const EXPERIENCE = [
-    {
-      id: 1,
-      role: 'Full-Stack Developer',
-      company: 'Leadway Assurance Company Ltd.',
-      period: 'July, 2025 - Present',
-      description: 'Building full-stack applications using Next.js (frontend) & Nest.js (backend). Developing, containerizing, and deploying services with Docker. Focus on scalable architecture, CI/CD, and end-to-end feature ownership.',
-      technologies: ['Next.js', 'Node.js', 'Nest.js', 'PostgreSQL', 'Azure'],
+      project: 'StreamPay Backend',
+      url: 'https://github.com/Streampay-Org/StreamPay-Backend/pulls?q=is%3Apr+author%3AOluwaseyi89+is%3Amerged',
+      work: 'Stream-creation API with Zod validation, Soroban RPC client with retry policy, transaction-submission layer, immutable audit-log pipeline.',
     },
     {
-      id: 2,
-      role: 'Open Source Projects Maintainer',
-      company: 'OnlyDust',
-      period: '2024 - 2025',
-      description: 'Open-source project maintainer for Starknet ecosystem projects via the OnlyDust platform. Acted as codebase steward, guiding community contributions by reviewing pull requests, managing issues, and helping to define technical roadmaps. Ensured code quality, upheld project governance, and mentored contributors to foster a collaborative developer community.',
-      technologies: ['Cairo', 'Web3.js', 'Ethereum', 'Starknet', 'Stellar', 'React', 'Next.js', 'Nest.js', 'Django', 'Docker', 'GCP', 'Rust'],
+      project: 'ChronoPay Backend',
+      url: 'https://github.com/Chronopay-Org/ChronoPay-Backend/pulls?q=is%3Apr+author%3AOluwaseyi89+is%3Amerged',
+      work: 'Booking-intent APIs with owner/admin authorization, slot-update endpoint, cache-invalidation strategy.',
     },
     {
-      id: 3,
-      role: 'Full-Stack Developer',
-      company: 'De-Extralucid Tech World',
-      period: '2018 - 2024',
-      description: 'Developed and maintained enterprise applications using Java Spring and microservices.',
-      technologies: ['Java', 'Spring Boot', 'Next.js', 'Nuxt.js', 'Django', 'Docker', 'Kubernetes', 'Microservices'],
-    },
-  ] as const
-  
-  export const EDUCATION = [
-    {
-      id: 1,
-      degree: 'AWS Solutions Architect',
-      institution: 'ALX Africa',
-      period: 'Jan. 2025 - Apr. 2025',
-      description: 'Graduated with Honors',
+      project: 'ACBU Backend',
+      url: 'https://github.com/Pi-Defi-world/acbu-backend/pulls?q=is%3Apr+author%3AOluwaseyi89+is%3Amerged',
+      work: 'Real USDC→XLM swap on the Stellar DEX, RabbitMQ schema-validation fix, gitleaks secret scanning in CI.',
     },
     {
-      id: 2,
-      degree: 'AWS Cloud Practitioner',
-      institution: 'ALX Africa',
-      period: 'Apr. 2025 - Oct. 2025',
-      description: 'Graduated with Honors',
-    }
-  ] as const
-  
-  // Skills categories
-  export const SKILL_CATEGORIES = [
-    {
-      title: 'Frontend Development',
-      skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+      project: 'Zeus (CRYPTOInsured)',
+      url: 'https://github.com/CRYPTOInsured-Foundation/zeus/pulls?q=is%3Apr+author%3AOluwaseyi89+is%3Amerged',
+      work: 'Escrow factory, atomic-swap escrow with platform fees, lock timeouts and automatic refunds, P2P integration test suite.',
     },
-    {
-      title: 'Backend Development',
-      skills: ['Node.js', 'Python', 'Java', 'PostgreSQL', 'MongoDB', 'Redis'],
-    },
-    {
-      title: 'Blockchain & Web3',
-      skills: ['Solidity', 'Stellar', 'Ethereum', 'Smart Contracts', 'Web3.js'],
-    },
-    {
-      title: 'DevOps & Cloud',
-      skills: ['Docker', 'Kubernetes', 'AWS', 'CI/CD', 'Git', 'Linux'],
-    },
-  ] as const
-  
-  // Helper functions
-  export function getSectionDelay(sectionId: SectionId): number {
-    return ANIMATION_DELAYS[sectionId as keyof typeof ANIMATION_DELAYS] || 0.2
-  }
-  
-  export function getProjectTags(): string[] {
-    const allTags = new Set<string>()
-    PROJECTS.forEach(project => {
-      project.tags.forEach(tag => allTags.add(tag))
-    })
-    return Array.from(allTags).sort()
-  }
-  
-  export type Project = typeof PROJECTS[number]
-  export type TechStack = typeof TECH_STACK
-  export type SocialLink = typeof SOCIAL_LINKS[number]
-  export type Experience = typeof EXPERIENCE[number]
-  export type Education = typeof EDUCATION[number]
-  export type SkillCategory = typeof SKILL_CATEGORIES[number]
-  
-  // Export everything
-  export default {
-    NAV_ITEMS,
-    SOCIAL_LINKS,
-    TECH_STACK,
-    PROJECTS,
-    CONTACT_CONFIG,
-    ANIMATION_DELAYS,
-    COLOR_PALETTE,
-    EXPERIENCE,
-    EDUCATION,
-    SKILL_CATEGORIES,
-    getSectionDelay,
-    getProjectTags,
-  }
+  ],
+} as const
+
+export const CONTACT_CONFIG = {
+  // Formspree form ID: the part after /f/ in https://formspree.io/f/<id>.
+  // While empty, the form opens the visitor's email client instead.
+  formspreeId: '',
+  email: 'isenewoephr2012@gmail.com',
+  phone: '+234 8020873072',
+  location: PROFILE.location,
+  availability: PROFILE.availability,
+} as const
+
+export const EXPERIENCE = [
+  {
+    id: 1,
+    role: 'Backend Engineer',
+    company: 'Leadway Assurance Company Ltd.',
+    companyUrl: 'https://www.leadway.com',
+    period: '2025 – Present',
+    summary:
+      'Build and maintain the APIs behind Leadway’s Life Assurance business application, used by brokers and clients to manage policies and claims.',
+    highlights: [
+      'Design and maintain the REST APIs that power the Life Assurance broker and client portals, sustaining 99.9% API reliability.',
+      'Optimise high-volume policy and claims endpoints with query tuning and caching to cut average response times.',
+      'Implement authentication, role-based access control and audit logging to meet financial-services compliance requirements.',
+      'Ship through Azure CI/CD pipelines with zero-downtime deployments, working with DevOps on monitoring.',
+      'Refactor legacy modules into modular, testable Nest.js services, reducing recurring bugs.',
+    ],
+    links: [] as ReadonlyArray<{ label: string; url: string }>,
+    technologies: ['Node.js', 'Nest.js', 'TypeScript', 'PostgreSQL', 'Azure', 'Docker', 'CI/CD'],
+  },
+  {
+    id: 2,
+    role: 'Open-Source Maintainer',
+    company: 'NFTopia (via OnlyDust, Drips & GrantFox)',
+    companyUrl: 'https://github.com/NFTopia-Foundation',
+    period: '2025 – Present',
+    summary:
+      'Maintain NFTopia, an open-source platform for minting, auctioning and trading NFTs, built by a global community of contributors.',
+    highlights: [
+      'Led the platform through two architecture changes: from a Starknet app to separate backend services (Nest.js API, notifications, Django analytics, payments, marketplace), then to a Stellar/Soroban monorepo.',
+      'Merged 100+ of my own PRs and reviewed 30+ community PRs, enforcing clean architecture, testing and code-quality standards.',
+      'Own roadmap decisions on API design, database schema evolution and error handling.',
+      'Built the CI pipelines and contribution checks, deployed testnet contracts, and mentor new contributors.',
+    ],
+    links: [
+      { label: 'NFTopia on GitHub', url: 'https://github.com/NFTopia-Foundation' },
+    ] as ReadonlyArray<{ label: string; url: string }>,
+    technologies: ['Nest.js', 'TypeScript', 'GraphQL', 'Django', 'PostgreSQL', 'Rust (Soroban)', 'Cairo', 'Docker'],
+  },
+  {
+    id: 3,
+    role: 'Backend Engineer',
+    company: 'De-Extralucid Tech World, Kaduna',
+    companyUrl: '',
+    period: '2018 – 2024',
+    summary:
+      'Built backends for web platforms serving Kaduna State’s public institutions and tech ecosystem, delivered by a local software development company.',
+    highlights: [
+      'KAD ICT Hub: built backend features for the state innovation hub’s platform, including user accounts, training-programme and course registration, startup applications and events.',
+      'Digital Kaduna (a Gates Foundation-funded lab run by DFS Lab and CoLab): backend for publishing research reports and blog content, event and hackathon registration, and newsletter subscriptions.',
+      'Kadahive Innovation & Tech Hub: member-portal backend covering member accounts and dashboards, co-working space booking, event registration, a resource library and billing.',
+      'Designed relational schemas and REST APIs for web and mobile clients, and introduced Git workflows and CI practices for faster, safer releases.',
+    ],
+    links: [
+      { label: 'KAD ICT Hub', url: 'https://www.kadhub.ng/' },
+      { label: 'Digital Kaduna', url: 'https://digitalkaduna.com/' },
+      { label: 'Kadahive', url: 'https://kadahivehub.com/' },
+    ] as ReadonlyArray<{ label: string; url: string }>,
+    technologies: ['Python', 'Django', 'Node.js', 'PHP', 'MySQL', 'PostgreSQL', 'REST APIs', 'Git'],
+  },
+] as const
+
+export const CERTIFICATIONS = [
+  {
+    id: 1,
+    name: 'AWS Certified Solutions Architect – Associate',
+    issuer: 'Amazon Web Services',
+    training: 'Trained through ALX Africa',
+    date: 'Oct 2025',
+    credentialUrl: 'https://www.credly.com/badges/a3f4c771-db13-4a31-b0ff-51a8a9cf58ef/public_url',
+  },
+  {
+    id: 2,
+    name: 'AWS Certified Cloud Practitioner',
+    issuer: 'Amazon Web Services',
+    training: 'Trained through ALX Africa',
+    date: 'Jun 2025',
+    credentialUrl: 'https://www.credly.com/badges/1b7edc11-16e1-4c29-b281-608f9e8731ea/public_url',
+  },
+] as const
+
+export type Project = typeof PROJECTS[number]
+export type TechStack = typeof TECH_STACK
+export type SocialLink = typeof SOCIAL_LINKS[number]
+export type Experience = typeof EXPERIENCE[number]
+export type Certification = typeof CERTIFICATIONS[number]
+export type SkillCategory = typeof SKILL_CATEGORIES[number]

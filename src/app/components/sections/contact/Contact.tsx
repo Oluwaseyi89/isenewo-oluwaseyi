@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Send, Mail, Phone, MapPin, CheckCircle, Loader2 } from 'lucide-react'
-import { CONTACT_CONFIG, SOCIAL_LINKS } from '@/app/utils/constants'
+import { Send, Mail, Phone, MapPin, CheckCircle, Loader2, Download } from 'lucide-react'
+import { CONTACT_CONFIG, PROFILE, SOCIAL_LINKS } from '@/app/utils/constants'
 import { SOCIAL_ICON_MAP } from '@/app/utils/social-icons'
 
 
@@ -27,25 +27,34 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true)
     setError('')
 
+    // Without a Formspree form, hand the message to the visitor's email client
+    if (!CONTACT_CONFIG.formspreeId) {
+      const body = `${formData.message}\n\n${formData.name} <${formData.email}>`
+      window.location.href = `mailto:${CONTACT_CONFIG.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(body)}`
+      return
+    }
+
+    setIsSubmitting(true)
     try {
-      // Simulate form submission (replace with actual Formspree/EmailJS)
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      
-      // Reset form
+      const response = await fetch(`https://formspree.io/f/${CONTACT_CONFIG.formspreeId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ ...formData, _replyto: formData.email, _subject: `Portfolio: ${formData.subject}` }),
+      })
+      if (!response.ok) throw new Error(`Formspree responded with ${response.status}`)
+
       setFormData({ name: '', email: '', subject: '', message: '' })
       setIsSubmitted(true)
-      
-      // Reset success message after 5 seconds
       setTimeout(() => setIsSubmitted(false), 5000)
-    } catch (err) {
-      setError('Failed to send message. Please try again.')
+    } catch {
+      setError(`Your message could not be sent. Please email me directly at ${CONTACT_CONFIG.email}.`)
     } finally {
       setIsSubmitting(false)
     }
   }
+
 
   return (
     <div className="space-y-12">
@@ -77,8 +86,8 @@ export default function Contact() {
           transition={{ delay: 0.2 }}
           className="text-lg text-muted max-w-3xl mx-auto"
         >
-          Have a project in mind? Let&apos;s discuss how we can work together to 
-          bring your ideas to life.
+          Hiring for a backend role? I&apos;m open to remote positions, and to on-site
+          roles with relocation where visa sponsorship is available.
         </motion.p>
       </div>
 
@@ -98,6 +107,16 @@ export default function Contact() {
             <p className="text-muted">
               {CONTACT_CONFIG.availability}
             </p>
+
+            <a
+              href={PROFILE.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-light transition-colors"
+            >
+              <Download className="w-5 h-5" />
+              Download my CV
+            </a>
           </div>
 
           {/* Contact Details */}
@@ -251,7 +270,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
-                    placeholder="John Doe"
+                    placeholder="Your name"
                   />
                 </div>
 
@@ -267,7 +286,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
-                    placeholder="john@example.com"
+                    placeholder="you@company.com"
                   />
                 </div>
               </div>
@@ -284,7 +303,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
-                  placeholder="Project Inquiry"
+                  placeholder="Backend Engineer role at …"
                 />
               </div>
 
@@ -300,7 +319,7 @@ export default function Contact() {
                   required
                   rows={5}
                   className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors resize-none"
-                  placeholder="Tell me about your project..."
+                  placeholder="Tell me about the role, team or project…"
                 />
               </div>
 

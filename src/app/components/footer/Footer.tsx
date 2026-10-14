@@ -39,8 +39,8 @@ export default function Footer() {
             </div>
             
             <p className="text-muted text-sm max-w-xs">
-              Crafting exceptional digital experiences with modern technologies. 
-              Passionate about clean code and innovative solutions.
+              Isenewo Oluwaseyi Ephraim: Backend Engineer building APIs, payments
+              and distributed systems. AWS Certified Solutions Architect.
             </p>
             
             {/* Quick Contact */}
@@ -68,8 +68,8 @@ export default function Footer() {
               {[
                 { label: 'About', href: '#about' },
                 { label: 'Works', href: '#works' },
-                { label: 'Skills', href: '#skills' },
                 { label: 'Contact', href: '#contact' },
+                { label: 'Download CV', href: '/Isenewo_Oluwaseyi_CV_for_Software_Dev.pdf' },
               ].map((link) => (
                 <li key={link.label}>
                   <a
@@ -94,7 +94,7 @@ export default function Footer() {
           >
             <h3 className="text-lg font-semibold text-foreground">Let&apos;s Connect</h3>
             <p className="text-sm text-muted">
-              Follow for insights on full-stack development, blockchain, and tech innovation.
+              Open to backend roles: remote, or relocation with visa sponsorship.
             </p>
             
             {/* Social Links */}
@@ -156,7 +156,7 @@ export default function Footer() {
           >
             <div className="flex items-center gap-1">
               <Coffee className="w-4 h-4" />
-              <span>Crafted with passion</span>
+              <span>Built with Next.js</span>
             </div>
             <div className="hidden sm:block">•</div>
             <a 

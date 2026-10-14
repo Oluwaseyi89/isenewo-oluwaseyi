@@ -7,7 +7,7 @@ import NavLinks from './NavLinks'
 import MobileDrawer from './MobileDrawer'
 import ThemeToggle from '../ui/ThemeToggle'
 import { useScrollDirection } from '@/hooks/useScrollDirection'
-import { NAV_ITEMS } from '@/app/utils/constants'
+import { NAV_ITEMS, PROFILE } from '@/app/utils/constants'
 
 export default function Header() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
@@ -98,6 +98,14 @@ export default function Header() {
                 activeSection={activeSection} 
                 onNavClick={handleNavClick} 
               />
+              <a
+                href={PROFILE.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 text-sm font-medium border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
+              >
+                CV
+              </a>
               <div className="ml-4">
                 <ThemeToggle />
               </div>
