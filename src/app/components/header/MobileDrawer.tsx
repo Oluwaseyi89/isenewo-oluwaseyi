@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
-import { NAV_ITEMS } from '@/app/utils/constants'
+import { NAV_ITEMS, PROFILE } from '@/app/utils/constants'
 
 interface MobileDrawerProps {
   isOpen: boolean
@@ -85,12 +85,20 @@ export default function MobileDrawer({
                   )}
                 </motion.a>
               ))}
+              <a
+                href={PROFILE.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center px-4 py-3 rounded-lg text-primary border border-primary/40 hover:bg-primary/10 transition-colors font-medium"
+              >
+                Download CV
+              </a>
             </nav>
 
             {/* Footer */}
             <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-border">
               <p className="text-sm text-muted text-center">
-                © {new Date().getFullYear()} Isenewo.dev
+                © {new Date().getFullYear()} Isenewo Oluwaseyi Ephraim
               </p>
             </div>
           </motion.div>

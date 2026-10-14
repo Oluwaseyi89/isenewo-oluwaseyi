@@ -1,5 +1,9 @@
-import { PROJECTS } from './constants'
+import { PROJECTS as ALL_PROJECTS } from './constants'
 import { ALL_PROJECT_TAGS, ProjectTag } from './constants'
+
+// A project is shown only once it has both a live site and a preview image.
+// Add `liveUrl` and `image` to a project in constants.ts to make it appear.
+export const PROJECTS = ALL_PROJECTS.filter(project => project.liveUrl && project.image)
 
 // Filter types
 export type FilterType = 'all' | 'featured' | ProjectTag

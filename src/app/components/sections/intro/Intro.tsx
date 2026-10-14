@@ -1,8 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowDown, Sparkles } from 'lucide-react'
-import { SOCIAL_LINKS } from '@/app/utils/constants'
+import { ArrowDown, Download, Sparkles } from 'lucide-react'
+import { HERO_LANGUAGES, HERO_STATS, PROFILE, SOCIAL_LINKS } from '@/app/utils/constants'
 import { SOCIAL_ICON_MAP } from '@/app/utils/social-icons'
 
 
@@ -28,7 +28,6 @@ export default function Intro() {
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
-            {/* style={{border: "solid red 1px"}} */}
             <div  className="space-y-4">
               <motion.div
                 initial={{ opacity: 0 }}
@@ -38,7 +37,7 @@ export default function Intro() {
               >
                 <Sparkles className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium text-primary">
-                  Hello, I&apos;m
+                  Open to backend roles · Remote or relocation
                 </span>
               </motion.div>
 
@@ -48,8 +47,7 @@ export default function Intro() {
               <div className="flex justify-center lg:justify-end">
                 <div className="w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 overflow-hidden rounded-full shadow-lg">
                   <img
-                    alt="avatar"
-                    // src="https://oluwaseyi89-bucket.s3.us-east-1.amazonaws.com/seyi_psp_xs_trans.png"
+                    alt={PROFILE.name}
                     src="images/seyi_psp_xs_trans.png"
                     className="w-full h-full object-cover"
                   />
@@ -80,8 +78,10 @@ export default function Intro() {
                 transition={{ delay: 0.4 }}
                 className="text-xl text-muted max-w-2xl"
               >
-                Full-Stack Developer & Blockchain Specialist crafting 
-                exceptional digital experiences with modern technologies.
+                <span className="block font-semibold text-foreground">
+                  {PROFILE.headline}
+                </span>
+                <span className="block mt-3 text-lg">{PROFILE.summary}</span>
               </motion.p>
             </div>
 
@@ -148,15 +148,17 @@ export default function Intro() {
               >
                 View Projects
               </motion.a>
-              <motion.button
-                onClick={scrollToAbout}
+              <motion.a
+                href={PROFILE.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Learn More
-                <ArrowDown className="w-4 h-4" />
-              </motion.button>
+                Download CV
+                <Download className="w-4 h-4" />
+              </motion.a>
             </motion.div>
           </motion.div>
 
@@ -168,12 +170,7 @@ export default function Intro() {
             className="relative"
           >
             <div className="grid grid-cols-2 gap-4">
-              {[
-                { label: 'Years Experience', value: '5+' },
-                { label: 'Projects Delivered', value: '10+' },
-                { label: 'Technologies', value: '20+' },
-                { label: 'Happy Clients', value: '5' },
-              ].map((stat, index) => (
+              {HERO_STATS.map((stat, index) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 20 }}
@@ -196,7 +193,7 @@ export default function Intro() {
                 transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                 className="relative w-48 h-48"
               >
-                {['Java', 'TS', 'Rust', 'Py'].map((tech, index) => (
+                {HERO_LANGUAGES.map((tech, index) => (
                   <motion.div
                     key={tech}
                     className="absolute bg-background border border-border rounded-full p-3 shadow-lg"
