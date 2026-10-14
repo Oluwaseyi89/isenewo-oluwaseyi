@@ -383,8 +383,8 @@ export const OPEN_SOURCE = {
 } as const
 
 export const CONTACT_CONFIG = {
-  // Formspree form ID: the part after /f/ in https://formspree.io/f/<id>.
-  // While empty, the form opens the visitor's email client instead.
+  // Formspree form ID (the part after /f/ in https://formspree.io/f/<id>), set via
+  // NEXT_PUBLIC_FORMSPREE_ID. While unset, the form opens the visitor's email client.
   formspreeId: process.env.NEXT_PUBLIC_FORMSPREE_ID ?? '',
   email: 'isenewoephr2012@gmail.com',
   phone: '+234 8020873072',
