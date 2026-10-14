@@ -1,33 +1,31 @@
 'use client'
 
 import { Moon, Sun } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useTheme } from '@/app/providers/ThemeProvider'
-import { motion } from 'framer-motion'
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme()
+  const next = theme === 'light' ? 'dark' : 'light'
 
   return (
-    <motion.button
+    <button
       onClick={toggleTheme}
-      className="relative p-3 rounded-full glass-effect hover:bg-primary/10 transition-colors"
-      whileTap={{ scale: 0.95 }}
-      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      className="relative grid place-items-center w-10 h-10 rounded-full border border-border bg-surface-2 text-foreground hover:border-primary hover:text-primary transition-colors overflow-hidden"
+      aria-label={`Switch to ${next} mode`}
+      title={`Switch to ${next} mode`}
     >
-      <motion.div
-        initial={false}
-        animate={{ rotate: theme === 'light' ? 0 : 180 }}
-        transition={{ duration: 0.3 }}
-      >
-        {theme === 'light' ? (
-          <Moon className="w-5 h-5 text-primary" />
-        ) : (
-          <Sun className="w-5 h-5 text-primary-light" />
-        )}
-      </motion.div>
-      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 text-xs font-medium text-muted">
-        {theme === 'light' ? 'Dark' : 'Light'}
-      </span>
-    </motion.button>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={theme}
+          initial={{ y: 14, opacity: 0, rotate: -45 }}
+          animate={{ y: 0, opacity: 1, rotate: 0 }}
+          exit={{ y: -14, opacity: 0, rotate: 45 }}
+          transition={{ duration: 0.2 }}
+        >
+          {theme === 'light' ? <Moon className="w-[18px] h-[18px]" /> : <Sun className="w-[18px] h-[18px]" />}
+        </motion.span>
+      </AnimatePresence>
+    </button>
   )
 }

@@ -3,7 +3,8 @@ import type { SocialIconKey } from './social-icons'
 export const NAV_ITEMS = [
   { id: 'intro', label: 'Intro' },
   { id: 'about', label: 'About' },
-  { id: 'works', label: 'Works' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'works', label: 'Work' },
   { id: 'contact', label: 'Contact' },
 ] as const
 
@@ -21,7 +22,8 @@ export const PROFILE = {
   availability:
     'Open to backend engineering roles: remote, or on-site/relocation with visa sponsorship.',
   location: 'Kaduna, Nigeria',
-  resumeUrl: '/Isenewo_Oluwaseyi_CV_for_Software_Dev.pdf',
+  resumeUrl: '/Isenewo_Oluwaseyi_Backend_Engineer_CV.pdf',
+  resumeDocxUrl: '/Isenewo_Oluwaseyi_Backend_Engineer_CV.docx',
   siteUrl: 'https://isenewo-oluwaseyi.vercel.app',
 } as const
 
@@ -399,6 +401,8 @@ export const EXPERIENCE = [
     company: 'Leadway Assurance Company Ltd.',
     companyUrl: 'https://www.leadway.com',
     period: '2025 – Present',
+    start: 2025,
+    end: null,
     summary:
       'Build and maintain the APIs behind Leadway’s Life Assurance business application, used by brokers and clients to manage policies and claims.',
     highlights: [
@@ -417,6 +421,8 @@ export const EXPERIENCE = [
     company: 'NFTopia (via OnlyDust, Drips & GrantFox)',
     companyUrl: 'https://github.com/NFTopia-Foundation',
     period: '2025 – Present',
+    start: 2025,
+    end: null,
     summary:
       'Maintain NFTopia, an open-source platform for minting, auctioning and trading NFTs, built by a global community of contributors.',
     highlights: [
@@ -436,6 +442,8 @@ export const EXPERIENCE = [
     company: 'De-Extralucid Tech World, Kaduna',
     companyUrl: '',
     period: '2018 – 2024',
+    start: 2018,
+    end: 2024,
     summary:
       'Built backends for web platforms serving Kaduna State’s public institutions and tech ecosystem, delivered by a local software development company.',
     highlights: [

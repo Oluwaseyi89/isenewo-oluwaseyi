@@ -1,59 +1,36 @@
-'use client'
-
-import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
 import Intro from '@/app/components/sections/intro/Intro'
 import About from '@/app/components/sections/about/About'
+import Experience from '@/app/components/sections/experience/Experience'
 import Works from '@/app/components/sections/works/Works'
+import OpenSource from '@/app/components/sections/opensource/OpenSource'
 import Contact from '@/app/components/sections/contact/Contact'
 import ScrollIndicator from '@/app/components/ui/ScrollIndicator'
-import AnimatedSection from '@/app/components/ui/AnimatedSection'
+import IntroScreen from '@/app/components/intro/IntroScreen'
 
 const sections = [
-  { id: 'intro', component: Intro },
-  { id: 'about', component: About },
-  { id: 'works', component: Works },
-  { id: 'contact', component: Contact },
+  { id: 'intro', Component: Intro },
+  { id: 'about', Component: About },
+  { id: 'experience', Component: Experience },
+  { id: 'works', Component: Works },
+  { id: 'open-source', Component: OpenSource },
+  { id: 'contact', Component: Contact },
 ]
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end']
-  })
-  
-  const [activeSection, setActiveSection] = useState('intro')
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
-          }
-        })
-      },
-      { threshold: 0.5, rootMargin: '-100px 0px -100px 0px' }
-    )
-
-    sections.forEach(({ id }) => {
-      const element = document.getElementById(id)
-      if (element) observer.observe(element)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <div ref={containerRef} className="relative">
+    <div className="relative overflow-x-clip">
+      <IntroScreen />
       <ScrollIndicator />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {sections.map(({ id, component: Component }, index) => (
-          <AnimatedSection key={id} id={id} index={index}>
+
+      {/* Ambient backdrop */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[900px] bg-grid" />
+      <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] glow" />
+
+      <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
+        {sections.map(({ id, Component }) => (
+          <section key={id} id={id} className={id === 'intro' ? '' : 'py-16 sm:py-24'}>
             <Component />
-          </AnimatedSection>
+          </section>
         ))}
       </div>
     </div>

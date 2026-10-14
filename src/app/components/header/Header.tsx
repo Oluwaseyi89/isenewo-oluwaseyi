@@ -1,157 +1,104 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { Menu, X, Download } from 'lucide-react'
 import NavLinks from './NavLinks'
 import MobileDrawer from './MobileDrawer'
 import ThemeToggle from '../ui/ThemeToggle'
-import { useScrollDirection } from '@/hooks/useScrollDirection'
 import { NAV_ITEMS, PROFILE } from '@/app/utils/constants'
 
 export default function Header() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('intro')
+  const [activeSection, setActiveSection] = useState<string>('intro')
   const [isScrolled, setIsScrolled] = useState(false)
-  const scrollDirection = useScrollDirection()
 
-  // Handle scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-      
-      // Update active section based on scroll position
-      const sections = NAV_ITEMS.map(item => item.id)
-      const current = sections.find(section => {
-        const element = document.getElementById(section)
-        if (!element) return false
-        
-        const rect = element.getBoundingClientRect()
-        return rect.top <= 100 && rect.bottom >= 100
-      })
-      
-      if (current) setActiveSection(current)
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 24)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id)
+        })
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    )
+    NAV_ITEMS.forEach(({ id }) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      observer.disconnect()
+    }
   }, [])
 
-  // Close drawer when clicking on nav link
   const handleNavClick = (sectionId: string) => {
     setIsDrawerOpen(false)
-    setActiveSection(sectionId)
-    
-    // Smooth scroll to section
-    const element = document.getElementById(sectionId)
-    if (element) {
-      const offset = 80 // Header height offset
-      const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - offset
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
-    }
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'
-        } ${
-          isScrolled
-            ? 'bg-background/80 glass-effect border-b border-border/50 backdrop-blur-lg'
-            : 'bg-transparent'
-        }`}
+        className="fixed top-0 inset-x-0 z-50 px-4 pt-4"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo/Name */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center"
+        <div
+          className={`mx-auto max-w-6xl flex items-center justify-between gap-4 rounded-full px-3 py-2 pl-5 transition-all duration-300 ${
+            isScrolled ? 'glass shadow-[var(--shadow)]' : 'border border-transparent'
+          }`}
+        >
+          <a
+            href="#intro"
+            onClick={(e) => {
+              e.preventDefault()
+              handleNavClick('intro')
+            }}
+            className="font-mono text-sm font-medium text-foreground flex items-center gap-2"
+            aria-label="Back to top"
+          >
+            <span className="pulse-dot" />
+            <span>
+              isenewo<span className="text-primary">.</span>dev
+            </span>
+          </a>
+
+          <nav className="hidden md:block" aria-label="Primary">
+            <NavLinks activeSection={activeSection} onNavClick={handleNavClick} />
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={PROFILE.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-2 h-10 px-4 rounded-full bg-foreground text-background text-sm font-medium hover:bg-primary hover:text-primary-ink transition-colors"
             >
-              <a
-                href="#intro"
-                onClick={(e) => {
-                  e.preventDefault()
-                  handleNavClick('intro')
-                }}
-                className="text-xl font-bold tracking-tight"
-              >
-                <span className="text-primary">seyi</span>
-                <span className="text-primary-light">.</span>
-                <span className="text-foreground">dev</span>
-              </a>
-            </motion.div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <NavLinks 
-                activeSection={activeSection} 
-                onNavClick={handleNavClick} 
-              />
-              <a
-                href={PROFILE.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 text-sm font-medium border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
-              >
-                CV
-              </a>
-              <div className="ml-4">
-                <ThemeToggle />
-              </div>
-            </nav>
-
-            {/* Mobile Menu Button */}
-            <div className="flex items-center space-x-4 md:hidden">
-              <ThemeToggle />
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-                className="p-2 rounded-lg hover:bg-primary/10 transition-colors"
-                aria-label="Toggle menu"
-              >
-                <AnimatePresence mode="wait">
-                  {isDrawerOpen ? (
-                    <motion.div
-                      key="close"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <X className="w-6 h-6 text-foreground" />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="menu"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Menu className="w-6 h-6 text-foreground" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.button>
-            </div>
+              <Download className="w-4 h-4" />
+              CV
+            </a>
+            <ThemeToggle />
+            <button
+              onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+              className="md:hidden grid place-items-center w-10 h-10 rounded-full border border-border bg-surface-2 text-foreground"
+              aria-label={isDrawerOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isDrawerOpen}
+            >
+              {isDrawerOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
       </motion.header>
 
-      {/* Mobile Drawer */}
-      <MobileDrawer 
-        isOpen={isDrawerOpen} 
+      <MobileDrawer
+        isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
         activeSection={activeSection}
         onNavClick={handleNavClick}
