@@ -1,7 +1,7 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Download } from 'lucide-react'
 import { NAV_ITEMS, PROFILE } from '@/app/utils/constants'
 
 interface MobileDrawerProps {
@@ -11,97 +11,61 @@ interface MobileDrawerProps {
   onNavClick: (sectionId: string) => void
 }
 
-export default function MobileDrawer({ 
-  isOpen, 
-  onClose, 
-  activeSection, 
-  onNavClick 
-}: MobileDrawerProps) {
-  const handleNavClick = (sectionId: string) => {
-    onNavClick(sectionId)
-    onClose()
-  }
-
+export default function MobileDrawer({ isOpen, onClose, activeSection, onNavClick }: MobileDrawerProps) {
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm md:hidden"
           />
-
-          {/* Drawer */}
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed top-0 right-0 bottom-0 z-50 w-64 bg-background border-l border-border shadow-2xl md:hidden"
+          <motion.nav
+            initial={{ opacity: 0, y: -12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-20 inset-x-4 z-50 card p-3 md:hidden"
+            aria-label="Mobile"
           >
-            {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-border">
-              <h2 className="text-lg font-semibold text-foreground">Menu</h2>
-              <button
-                onClick={onClose}
-                className="p-2 rounded-lg hover:bg-primary/10 transition-colors"
-                aria-label="Close menu"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Navigation Links */}
-            <nav className="p-4 space-y-2">
-              {NAV_ITEMS.map((item, index) => (
-                <motion.a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    handleNavClick(item.id)
-                  }}
-                  className={`flex items-center px-4 py-3 rounded-lg transition-colors ${
-                    activeSection === item.id
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-muted hover:text-foreground hover:bg-primary/5'
-                  }`}
-                >
-                  <span className="font-medium">{item.label}</span>
-                  
-                  {activeSection === item.id && (
-                    <motion.div
-                      layoutId="mobileActiveIndicator"
-                      className="ml-auto w-2 h-2 rounded-full bg-primary"
-                      initial={false}
-                    />
-                  )}
-                </motion.a>
+            <ul className="space-y-1">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      onNavClick(item.id)
+                      onClose()
+                    }}
+                    className={`flex items-center justify-between px-4 py-3 rounded-xl font-mono text-sm transition-colors ${
+                      activeSection === item.id
+                        ? 'bg-surface-2 text-foreground'
+                        : 'text-muted hover:text-foreground hover:bg-surface-2'
+                    }`}
+                  >
+                    <span>
+                      <span className="text-primary">/</span>
+                      {item.id === 'intro' ? 'home' : item.label.toLowerCase()}
+                    </span>
+                    {activeSection === item.id && <span className="pulse-dot" />}
+                  </a>
+                </li>
               ))}
-              <a
-                href={PROFILE.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center px-4 py-3 rounded-lg text-primary border border-primary/40 hover:bg-primary/10 transition-colors font-medium"
-              >
-                Download CV
-              </a>
-            </nav>
-
-            {/* Footer */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-border">
-              <p className="text-sm text-muted text-center">
-                © {new Date().getFullYear()} Isenewo Oluwaseyi Ephraim
-              </p>
-            </div>
-          </motion.div>
+            </ul>
+            <a
+              href={PROFILE.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-foreground text-background font-medium"
+            >
+              <Download className="w-4 h-4" />
+              Download CV
+            </a>
+          </motion.nav>
         </>
       )}
     </AnimatePresence>

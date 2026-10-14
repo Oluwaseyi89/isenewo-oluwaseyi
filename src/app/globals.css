@@ -1,38 +1,56 @@
 @import "tailwindcss";
 
 /* --------------------------------------------------
-   COLOR TOKENS
+   DESIGN TOKENS — "Uptime"
+   Dark: graphite-green night ops with signal mint.
+   Light: warm paper with deep emerald ink.
    -------------------------------------------------- */
 
-/* Light mode (default) */
-:root {
-  /* Core surfaces */
-  --background: #ffffff;
-  --foreground: #0b1220; /* Near-black navy for strong contrast */
+:root,
+[data-theme="light"] {
+  --background: #f5f3ee;
+  --surface: #ffffff;
+  --surface-2: #ece8df;
+  --foreground: #0f1a16;
+  --muted: #4c5b54;
+  --faint: #5f6c66;
+  --border: #dcd6c9;
 
-  /* Brand */
-  --primary: #1e40af; /* Stronger navy */
-  --primary-light: #3b82f6;
-  --secondary: #0891b2;
-  --accent: #7c3aed;
+  --primary: #087a50;
+  --primary-light: #0b9a66;
+  --primary-ink: #ffffff;
+  --accent: #c23b22;
+  --code-key: #087a50;
+  --code-string: #a8461d;
+  --code-number: #6d3fc0;
 
-  /* Supporting */
-  --muted: #475569; /* Darkened for readability */
-  --border: #e5e7eb;
+  --glow: rgba(8, 122, 80, 0.14);
+  --grid-line: rgba(15, 26, 22, 0.06);
+  --shadow: 0 1px 2px rgba(15, 26, 22, 0.06), 0 12px 32px -12px rgba(15, 26, 22, 0.18);
+  color-scheme: light;
 }
 
-/* Dark mode */
 [data-theme="dark"] {
-  --background: #0a192f;
-  --foreground: #f8fafc;
+  --background: #0a0f0d;
+  --surface: #101715;
+  --surface-2: #16201c;
+  --foreground: #e7efeb;
+  --muted: #94a69e;
+  --faint: #788b83;
+  --border: #23302b;
 
-  --primary: #60a5fa;
-  --primary-light: #93c5fd;
-  --secondary: #22d3ee;
-  --accent: #a78bfa;
+  --primary: #3ee6a0;
+  --primary-light: #7cf0c0;
+  --primary-ink: #03140d;
+  --accent: #ff7a5c;
+  --code-key: #3ee6a0;
+  --code-string: #ffb38a;
+  --code-number: #b9a3ff;
 
-  --muted: #9ca3af;
-  --border: #334155;
+  --glow: rgba(62, 230, 160, 0.16);
+  --grid-line: rgba(231, 239, 235, 0.045);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 20px 48px -20px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
 }
 
 /* --------------------------------------------------
@@ -40,59 +58,206 @@
    -------------------------------------------------- */
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-border: var(--border);
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);
-  --color-secondary: var(--secondary);
+  --color-primary-ink: var(--primary-ink);
   --color-accent: var(--accent);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-
-  /* Animations */
-  --animate-fade-in: fadeIn 0.5s ease-in-out;
-  --animate-slide-up: slideUp 0.5s ease-out;
-  --animate-slide-down: slideDown 0.5s ease-out;
-  --animate-pulse-slow: pulse 3s infinite;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-bricolage), var(--font-geist), sans-serif;
 }
 
 /* --------------------------------------------------
-   KEYFRAMES
-   -------------------------------------------------- */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes slideDown {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-/* --------------------------------------------------
-   BASE STYLES
+   BASE
    -------------------------------------------------- */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------
+   TYPOGRAPHY SCALE
+   -------------------------------------------------- */
+.text-hero {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6vw + 0.5rem, 6rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.text-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 3.6vw + 0.5rem, 3.75rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.text-h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1vw + 0.9rem, 1.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.text-lead {
+  font-size: clamp(1.125rem, 0.5vw + 1rem, 1.3rem);
+  line-height: 1.65;
+}
+
+.text-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------
+   SURFACES & EFFECTS
+   -------------------------------------------------- */
+.bg-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+.glow {
+  background: radial-gradient(closest-side, var(--glow), transparent);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.glass {
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.link-underline {
+  background-image: linear-gradient(var(--primary), var(--primary));
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+.link-underline:hover {
+  background-size: 100% 2px;
+}
+
+/* Live status dot */
+.pulse-dot {
+  position: relative;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--primary);
+}
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--primary);
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  vertical-align: text-bottom;
+  background: var(--primary);
+  animation: blink 1s steps(1) infinite;
+}
+
+/* --------------------------------------------------
+   INTRO SCREEN
+   -------------------------------------------------- */
+[data-intro="done"] .intro-screen {
+  display: none;
+}
+[data-intro="show"] body {
+  overflow: hidden;
 }
 
 /* --------------------------------------------------
@@ -101,97 +266,14 @@ body {
 ::-webkit-scrollbar {
   width: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  background: color-mix(in srgb, var(--background) 92%, transparent);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-light);
-}
-
-/* --------------------------------------------------
-   BACKGROUNDS & EFFECTS
-   -------------------------------------------------- */
-
-/* Hero gradients */
-.bg-navy-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--primary) 0%,
-    #1e3a8a 45%,
-    #0a192f 100%
-  );
-}
-
-.bg-sky-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--primary-light) 0%,
-    #38bdf8 50%,
-    #0ea5e9 100%
-  );
-}
-
-/* Glass morphism */
-.glass-effect {
-  background: color-mix(in srgb, var(--background) 82%, transparent);
-  backdrop-filter: blur(12px);
-  border: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
-}
-
-/* --------------------------------------------------
-   SECTION TRANSITIONS
-   -------------------------------------------------- */
-.section-enter {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.section-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-
-
-
-
-
-
-
-
-
-
-/* @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-} */
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+  border: 2px solid var(--background);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--faint);
+}

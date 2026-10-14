@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
+import { MotionConfig } from 'framer-motion'
 
 type Theme = 'light' | 'dark'
 
@@ -12,32 +13,26 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light')
-  const [mounted, setMounted] = useState(false)
+  const [theme, setTheme] = useState<Theme>('dark')
 
+  // The inline script in layout.tsx has already applied the initial theme
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as Theme | null
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const initialTheme = stored ?? (prefersDark ? 'dark' : 'light')
-
-    setTheme(initialTheme)
-    document.documentElement.setAttribute('data-theme', initialTheme)
-    setMounted(true)
+    const current = document.documentElement.getAttribute('data-theme')
+    if (current === 'light' || current === 'dark') setTheme(current)
   }, [])
 
-  useEffect(() => {
-    if (!mounted) return
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
-  }, [theme, mounted])
-
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
+    const next: Theme = theme === 'light' ? 'dark' : 'light'
+    setTheme(next)
+    document.documentElement.setAttribute('data-theme', next)
+    try {
+      localStorage.setItem('theme', next)
+    } catch {}
   }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
     </ThemeContext.Provider>
   )
 }

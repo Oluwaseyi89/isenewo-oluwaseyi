@@ -1,12 +1,17 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Bricolage_Grotesque, Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import Header from '@/app/components/header/Header'
 import Footer from '@/app/components/footer/Footer'
 import { ThemeProvider } from '@/app/providers/ThemeProvider'
 import { PROFILE } from '@/app/utils/constants'
 
-const inter = Inter({ subsets: ['latin'] })
+const display = Bricolage_Grotesque({ subsets: ['latin'], variable: '--font-bricolage', display: 'swap' })
+const sans = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap' })
+const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' })
+
+// Runs before first paint so the saved or system theme applies without a flash
+const bootScript = `(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}d.setAttribute('data-theme',t)}catch(e){d.setAttribute('data-theme','dark')}})()`
 
 const title = `${PROFILE.name} | Backend Engineer (Node.js, Go, Python)`
 const description =
@@ -52,11 +57,23 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>
+    <html
+      lang="en"
+      data-theme="dark"
+      data-intro="show"
+      suppressHydrationWarning
+      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+        <noscript>
+          <style>{`.intro-screen{display:none}`}</style>
+        </noscript>
+      </head>
+      <body>
         <ThemeProvider>
           <Header />
-          <main className="min-h-screen">{children}</main>
+          <main>{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

@@ -1,185 +1,84 @@
-'use client'
-
-import { motion } from 'framer-motion'
-import { Heart, Code, Mail, Coffee } from 'lucide-react'
-import { SOCIAL_LINKS } from '@/app/utils/constants'
+import { ArrowUp } from 'lucide-react'
+import { NAV_ITEMS, PROFILE, SOCIAL_LINKS } from '@/app/utils/constants'
 import { SOCIAL_ICON_MAP } from '@/app/utils/social-icons'
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
+  const year = new Date().getFullYear()
 
   return (
-    <footer className="relative border-t border-border/50 mt-20">
-      {/* Gradient background overlay */}
-      <div className="absolute inset-0 bg-linear-to-t from-background via-background/90 to-transparent -z-10" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            <div className="flex items-center gap-2">
-              <div className="text-2xl font-bold tracking-tight">
-                <span className="text-primary">seyi</span>
-                <span className="text-primary-light">.</span>
-                <span className="text-foreground">dev</span>
-              </div>
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-                className="text-primary"
-              >
-                <Code className="w-5 h-5" />
-              </motion.div>
-            </div>
-            
-            <p className="text-muted text-sm max-w-xs">
-              Isenewo Oluwaseyi Ephraim: Backend Engineer building APIs, payments
-              and distributed systems. AWS Certified Solutions Architect.
+    <footer className="relative mt-24 border-t border-border overflow-hidden">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-10 space-y-14">
+        <div className="grid md:grid-cols-[1.4fr_1fr_1fr] gap-10">
+          <div className="space-y-4 max-w-sm">
+            <p className="font-mono text-sm text-foreground flex items-center gap-2">
+              <span className="pulse-dot" />
+              <span>
+                isenewo<span className="text-primary">.</span>dev
+              </span>
             </p>
-            
-            {/* Quick Contact */}
-            <div className="flex items-center gap-2 text-sm text-muted">
-              <Mail className="w-4 h-4" />
-              <a 
-                href="mailto:isenewoephr2012@gmail.com" 
-                className="hover:text-primary transition-colors"
-              >
-                isenewoephr2012@gmail.com
-              </a>
-            </div>
-          </motion.div>
+            <p className="text-muted">
+              {PROFILE.name}. Backend engineer building APIs, payments and distributed systems.
+              AWS Certified Solutions Architect.
+            </p>
+          </div>
 
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            <h3 className="text-lg font-semibold text-foreground">Quick Links</h3>
-            <ul className="space-y-2">
-              {[
-                { label: 'About', href: '#about' },
-                { label: 'Works', href: '#works' },
-                { label: 'Contact', href: '#contact' },
-                { label: 'Download CV', href: '/Isenewo_Oluwaseyi_CV_for_Software_Dev.pdf' },
-              ].map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-muted hover:text-primary transition-colors flex items-center gap-2 group"
-                  >
-                    <span className="w-1 h-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {link.label}
+          <nav aria-label="Footer">
+            <p className="text-label text-faint mb-4">Navigate</p>
+            <ul className="space-y-2 font-mono text-sm">
+              {NAV_ITEMS.filter((i) => i.id !== 'intro').map((item) => (
+                <li key={item.id}>
+                  <a href={`#${item.id}`} className="text-muted hover:text-primary transition-colors">
+                    <span className="text-primary">/</span>
+                    {item.label.toLowerCase()}
                   </a>
                 </li>
               ))}
+              <li>
+                <a href={PROFILE.resumeUrl} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-primary transition-colors">
+                  <span className="text-primary">/</span>cv.pdf
+                </a>
+              </li>
             </ul>
-          </motion.div>
+          </nav>
 
-          {/* Connect Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            <h3 className="text-lg font-semibold text-foreground">Let&apos;s Connect</h3>
-            <p className="text-sm text-muted">
-              Open to backend roles: remote, or relocation with visa sponsorship.
-            </p>
-            
-            {/* Social Links */}
-            <div className="flex gap-3 pt-2">
+          <div>
+            <p className="text-label text-faint mb-4">Elsewhere</p>
+            <ul className="space-y-2">
               {SOCIAL_LINKS.map((link) => {
                 const Icon = SOCIAL_ICON_MAP[link.icon]
                 return (
-                  <motion.a
-                    key={link.name}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label={link.name}
-                    className={`
-                      p-3 rounded-xl glass-effect border border-border/50
-                      hover:border-primary/30 transition-all duration-300
-                      ${link.color}
-                    `}
-                  >
-                    <Icon className="w-5 h-5 text-muted group-hover:text-current" />
-                  </motion.a>
+                  <li key={link.name}>
+                    <a
+                      href={link.url}
+                      target={link.icon === 'mail' ? undefined : '_blank'}
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2.5 text-muted hover:text-primary transition-colors"
+                    >
+                      <Icon className="w-4 h-4" />
+                      {link.name === 'Twitter' ? 'X / Twitter' : link.name}
+                    </a>
+                  </li>
                 )
               })}
-            </div>
-          </motion.div>
+            </ul>
+          </div>
         </div>
 
-        {/* Divider */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="w-full h-px bg-linear-to-r from-transparent via-border to-transparent my-8"
-        />
-
-        {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-sm text-muted flex items-center gap-1"
-          >
-            © {currentYear} seyi.dev
-            <Heart className="w-3 h-3 text-red-500 mx-1 fill-current" />
-            All rights reserved.
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-4 text-sm text-muted"
-          >
-            <div className="flex items-center gap-1">
-              <Coffee className="w-4 h-4" />
-              <span>Built with Next.js</span>
-            </div>
-            <div className="hidden sm:block">•</div>
-            <a 
-              href="#intro" 
-              className="hover:text-primary transition-colors"
-              onClick={(e) => {
-                e.preventDefault()
-                window.scrollTo({ top: 0, behavior: 'smooth' })
-              }}
-            >
-              Back to top ↑
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Floating element */}
-        <motion.div
-          animate={{ y: [0, -10, 0] }}
-          transition={{ repeat: Infinity, duration: 3 }}
-          className="absolute -bottom-4 right-8 opacity-10"
+        <p
+          aria-hidden
+          className="font-display font-bold tracking-tighter leading-[0.8] text-[22vw] md:text-[13rem] text-surface-2 select-none -mb-4"
         >
-          <Code className="w-24 h-24 text-primary" />
-        </motion.div>
+          isenewo
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-border text-sm text-faint">
+          <p>© {year} {PROFILE.name}</p>
+          <p className="font-mono">Built with Next.js · deployed on Vercel</p>
+          <a href="#intro" className="inline-flex items-center gap-1.5 text-muted hover:text-primary transition-colors">
+            Back to top
+            <ArrowUp className="w-4 h-4" />
+          </a>
+        </div>
       </div>
     </footer>
   )

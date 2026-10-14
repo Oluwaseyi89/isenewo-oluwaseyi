@@ -1,28 +1,33 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Send, Mail, Phone, MapPin, CheckCircle, Loader2, Download } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowUpRight, Check, CheckCircle, Copy, Download, Loader2, MapPin, Phone, Send } from 'lucide-react'
 import { CONTACT_CONFIG, PROFILE, SOCIAL_LINKS } from '@/app/utils/constants'
 import { SOCIAL_ICON_MAP } from '@/app/utils/social-icons'
+import SectionHeading from '@/app/components/ui/SectionHeading'
+import Reveal from '@/app/components/ui/Reveal'
 
+const inputClass =
+  'w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground placeholder:text-faint outline-none transition-colors focus:border-primary focus:ring-4 focus:ring-primary/15'
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  })
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState('')
+  const [copied, setCopied] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_CONFIG.email)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {}
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,7 +52,7 @@ export default function Contact() {
 
       setFormData({ name: '', email: '', subject: '', message: '' })
       setIsSubmitted(true)
-      setTimeout(() => setIsSubmitted(false), 5000)
+      setTimeout(() => setIsSubmitted(false), 6000)
     } catch {
       setError(`Your message could not be sent. Please email me directly at ${CONTACT_CONFIG.email}.`)
     } finally {
@@ -55,310 +60,180 @@ export default function Contact() {
     }
   }
 
-
   return (
     <div className="space-y-12">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20"
-        >
-          <span className="text-sm font-medium text-primary">Get In Touch</span>
-        </motion.div>
-        
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-3xl sm:text-4xl font-bold text-foreground"
-        >
-          Let&apos;s <span className="text-primary">Connect</span>
-        </motion.h2>
-        
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-lg text-muted max-w-3xl mx-auto"
-        >
-          Hiring for a backend role? I&apos;m open to remote positions, and to on-site
-          roles with relocation where visa sponsorship is available.
-        </motion.p>
-      </div>
+      <SectionHeading
+        index="05"
+        route="/contact"
+        title={
+          <>
+            Let&apos;s build something <span className="text-primary">reliable.</span>
+          </>
+        }
+        intro="Hiring for a backend role? I'm open to remote positions, and to on-site roles with relocation where visa sponsorship is available."
+      />
 
-      <div className="grid lg:grid-cols-2 gap-12">
-        {/* Left column - Contact Info */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="space-y-8"
-        >
-          <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-foreground">
-              Contact Information
-            </h3>
-            
-            <p className="text-muted">
+      <div className="grid lg:grid-cols-12 gap-6">
+        {/* Direct channels */}
+        <Reveal className="lg:col-span-5">
+          <div className="card p-6 sm:p-8 space-y-6">
+            <p className="flex items-start gap-2.5 text-primary font-medium">
+              <span className="pulse-dot mt-2 shrink-0" />
               {CONTACT_CONFIG.availability}
             </p>
 
-            <a
-              href={PROFILE.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-light transition-colors"
-            >
-              <Download className="w-5 h-5" />
-              Download my CV
-            </a>
-          </div>
+            <div className="space-y-2">
+              <p className="text-label text-faint">Email</p>
+              <div className="flex items-center gap-2">
+                <a
+                  href={`mailto:${CONTACT_CONFIG.email}`}
+                  className="font-display text-lg sm:text-xl font-semibold text-foreground hover:text-primary transition-colors break-all"
+                >
+                  {CONTACT_CONFIG.email}
+                </a>
+                <button
+                  onClick={copyEmail}
+                  className="shrink-0 grid place-items-center w-9 h-9 rounded-full border border-border text-muted hover:text-primary hover:border-primary transition-colors"
+                  aria-label={copied ? 'Email copied' : 'Copy email address'}
+                >
+                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
 
-          {/* Contact Details */}
-          <div className="space-y-6">
-            {[
-              {
-                icon: <Mail className="w-5 h-5" />,
-                title: 'Email',
-                value: CONTACT_CONFIG.email,
-                href: `mailto:${CONTACT_CONFIG.email}`,
-              },
-              {
-                icon: <Phone className="w-5 h-5" />,
-                title: 'Phone',
-                value: CONTACT_CONFIG.phone,
-                href: `tel:${CONTACT_CONFIG.phone}`,
-              },
-              {
-                icon: <MapPin className="w-5 h-5" />,
-                title: 'Location',
-                value: CONTACT_CONFIG.location,
-                href: '#',
-              },
-            ].map((item, index) => (
-              <motion.a
-                key={item.title}
-                href={item.href}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 * index }}
-                className="flex items-center gap-4 p-4 rounded-xl glass-effect hover:bg-primary/5 transition-colors group"
-              >
-                <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                  {item.icon}
-                </div>
-                <div>
-                  <div className="font-medium text-foreground">{item.title}</div>
-                  <div className="text-muted group-hover:text-primary transition-colors">
-                    {item.value}
-                  </div>
-                </div>
-              </motion.a>
-            ))}
-          </div>
-
-          {/* Social Links */}
-          <div>
-            <h4 className="text-lg font-semibold text-foreground mb-4">
-              Connect on social media
-            </h4>
-
-            <div className="flex flex-wrap gap-4">
-              {SOCIAL_LINKS.map((link, index) => {
-                const Icon = SOCIAL_ICON_MAP[link.icon]
-
-                return (
-                  <motion.a
-                    key={link.name}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={link.name}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 * index }}
-                    whileHover={{ scale: 1.1, y: -4 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`
-                      group
-                      p-3
-                      rounded-xl
-                      glass-effect
-                      border border-border
-                      transition-all
-                      ${link.color}
-                    `}
+            <dl className="grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+              <div>
+                <dt className="text-label text-faint mb-1">Phone</dt>
+                <dd>
+                  <a
+                    href={`tel:${CONTACT_CONFIG.phone.replace(/\s/g, '')}`}
+                    className="inline-flex items-center gap-2 text-foreground hover:text-primary transition-colors"
                   >
-                    <Icon
-                      className="
-                        w-5 h-5
-                        text-muted-foreground
-                        group-hover:text-current
-                        transition-colors
-                      "
-                    />
-                  </motion.a>
-                )
-              })}
+                    <Phone className="w-4 h-4 text-primary" />
+                    {CONTACT_CONFIG.phone}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-label text-faint mb-1">Based in</dt>
+                <dd className="inline-flex items-center gap-2 text-foreground">
+                  <MapPin className="w-4 h-4 text-primary" />
+                  {CONTACT_CONFIG.location}
+                </dd>
+              </div>
+            </dl>
+
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <a
+                href={PROFILE.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 h-11 px-5 rounded-full bg-foreground text-background font-medium hover:bg-primary hover:text-primary-ink transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                Download CV
+              </a>
+              <div className="flex items-center gap-1">
+                {SOCIAL_LINKS.filter((l) => l.icon !== 'mail').map((link) => {
+                  const Icon = SOCIAL_ICON_MAP[link.icon]
+                  return (
+                    <a
+                      key={link.name}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.name}
+                      className="grid place-items-center w-11 h-11 rounded-full text-muted hover:text-primary hover:bg-surface-2 transition-colors"
+                    >
+                      <Icon className="w-5 h-5" />
+                    </a>
+                  )
+                })}
+              </div>
             </div>
           </div>
+        </Reveal>
 
-        </motion.div>
+        {/* Form */}
+        <Reveal delay={0.08} className="lg:col-span-7">
+          <form onSubmit={handleSubmit} className="card p-6 sm:p-8 space-y-5">
+            <div className="flex items-center justify-between gap-4">
+              <p className="font-mono text-sm text-muted">
+                <span className="text-primary font-semibold">POST</span> /v1/messages
+              </p>
+              <span className="text-label text-faint">replies within 24h</span>
+            </div>
 
-        {/* Right column - Contact Form */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="space-y-6"
-        >
-          <div className="bg-background border border-border rounded-2xl p-6 md:p-8">
-            <h3 className="text-2xl font-bold text-foreground mb-2">
-              Send a Message
-            </h3>
-            <p className="text-muted mb-6">
-              Fill out the form below and I&apos;ll get back to you as soon as possible.
-            </p>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <label className="space-y-2 block">
+                <span className="text-sm font-medium text-foreground">Your name</span>
+                <input name="name" value={formData.name} onChange={handleChange} required autoComplete="name" className={inputClass} placeholder="Your name" />
+              </label>
+              <label className="space-y-2 block">
+                <span className="text-sm font-medium text-foreground">Email address</span>
+                <input type="email" name="email" value={formData.email} onChange={handleChange} required autoComplete="email" className={inputClass} placeholder="you@company.com" />
+              </label>
+            </div>
 
-            {/* Success Message */}
-            {isSubmitted && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg"
-              >
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <div>
-                    <h4 className="font-medium text-green-700 dark:text-green-400">
-                      Message sent successfully!
-                    </h4>
-                    <p className="text-sm text-green-600 dark:text-green-500">
-                      I&apos;ll get back to you within 24 hours.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
+            <label className="space-y-2 block">
+              <span className="text-sm font-medium text-foreground">Subject</span>
+              <input name="subject" value={formData.subject} onChange={handleChange} required className={inputClass} placeholder="Backend Engineer role at …" />
+            </label>
 
-            {/* Error Message */}
+            <label className="space-y-2 block">
+              <span className="text-sm font-medium text-foreground">Message</span>
+              <textarea name="message" value={formData.message} onChange={handleChange} required rows={6} className={`${inputClass} resize-none`} placeholder="Tell me about the role, team or project…" />
+            </label>
+
+            <AnimatePresence>
+              {isSubmitted && (
+                <motion.p
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  role="status"
+                  className="flex items-center gap-3 p-4 rounded-xl bg-primary/10 border border-primary/30 text-foreground"
+                >
+                  <CheckCircle className="w-5 h-5 text-primary shrink-0" />
+                  <span>
+                    <span className="font-mono text-primary">201 Created</span> · Message sent. I&apos;ll reply within 24 hours.
+                  </span>
+                </motion.p>
+              )}
+            </AnimatePresence>
+
             {error && (
-              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
-                <p className="text-red-700 dark:text-red-400">{error}</p>
-              </div>
+              <p role="alert" className="p-4 rounded-xl bg-accent/10 border border-accent/30 text-foreground">
+                {error}
+              </p>
             )}
 
-            {/* Contact Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium text-foreground">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
-                    placeholder="Your name"
-                  />
-                </div>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="group w-full inline-flex items-center justify-center gap-2 h-12 rounded-full bg-primary text-primary-ink font-semibold hover:bg-primary-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Sending…
+                </>
+              ) : (
+                <>
+                  Send message
+                  <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </>
+              )}
+            </button>
 
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-foreground">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
-                    placeholder="you@company.com"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="subject" className="text-sm font-medium text-foreground">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
-                  placeholder="Backend Engineer role at …"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium text-foreground">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors resize-none"
-                  placeholder="Tell me about the role, team or project…"
-                />
-              </div>
-
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-light transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-5 h-5" />
-                    Send Message
-                  </>
-                )}
-              </motion.button>
-            </form>
-          </div>
-
-          {/* Note */}
-          <div className="text-center text-sm text-muted">
-            <p>
-              I typically respond within 24 hours. You can also reach me directly 
-              at{' '}
-              <a
-                href={`mailto:${CONTACT_CONFIG.email}`}
-                className="text-primary hover:underline"
-              >
-                {CONTACT_CONFIG.email}
+            <p className="text-sm text-faint text-center">
+              Prefer email?{' '}
+              <a href={`mailto:${CONTACT_CONFIG.email}`} className="text-primary inline-flex items-center gap-0.5 link-underline">
+                Write to me directly <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </p>
-          </div>
-        </motion.div>
+          </form>
+        </Reveal>
       </div>
     </div>
   )

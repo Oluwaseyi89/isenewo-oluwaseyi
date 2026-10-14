@@ -1,313 +1,194 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, Filter, X } from 'lucide-react'
-import { OPEN_SOURCE, PROJECTS } from '@/app/utils/constants'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowUpRight, Github, X } from 'lucide-react'
+import { Project } from '@/app/utils/constants'
+import { FilterType, filterProjects, getPopularTags, isProjectTag } from '@/app/utils/projectUtils'
+import SectionHeading from '@/app/components/ui/SectionHeading'
+import Reveal from '@/app/components/ui/Reveal'
 import ProjectCard from './ProjectCard'
-import { 
-  FilterType, 
-  filterProjects, 
-  getAllProjectTags, 
-  getPopularTags,
-  isProjectTag 
-} from '@/app/utils/projectUtils'
+
+// Widen enough cards to fill the 3-column grid without leaving gaps
+function largeIndexes(count: number) {
+  const needed = (3 - (count % 3)) % 3
+  return new Set(Array.from({ length: needed }, (_, i) => i * 3))
+}
 
 export default function Works() {
   const [filter, setFilter] = useState<FilterType>('all')
-  const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[number] | null>(null)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
-  // Get tags for filter buttons
-  const allTags = getAllProjectTags()
-  const popularTags = getPopularTags(6)
-
-  // Get filtered projects (type-safe)
+  const popularTags = getPopularTags(5)
   const filteredProjects = filterProjects(filter)
+  const large = largeIndexes(filteredProjects.length)
 
-  // Handle filter change safely
-  const handleFilterChange = (newFilter: string) => {
-    if (newFilter === 'all' || newFilter === 'featured' || isProjectTag(newFilter)) {
-      setFilter(newFilter as FilterType)
+  useEffect(() => {
+    if (!selectedProject) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSelectedProject(null)
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
     }
+  }, [selectedProject])
+
+  const handleFilterChange = (next: string) => {
+    if (next === 'all' || next === 'featured' || isProjectTag(next)) setFilter(next as FilterType)
   }
+
+  const filters = ['all', 'featured', ...popularTags]
 
   return (
     <div className="space-y-12">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20"
-        >
-          <span className="text-sm font-medium text-primary">My Projects</span>
-        </motion.div>
-        
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-3xl sm:text-4xl font-bold text-foreground"
-        >
-          Featured <span className="text-primary">Works</span>
-        </motion.h2>
-        
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-lg text-muted max-w-3xl mx-auto"
-        >
-          Backend systems I have designed and built: APIs, payments, real-time
-          services and distributed infrastructure. Open the details for the
-          engineering decisions behind each one.
-        </motion.p>
-      </div>
+      <SectionHeading
+        index="03"
+        route="/work"
+        title={
+          <>
+            Systems in <span className="text-primary">production.</span>
+          </>
+        }
+        intro="Employer, client and personal platforms. Open any project for the engineering decisions behind it."
+      />
 
-      {/* Filter Buttons */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-        className="flex flex-wrap justify-center gap-3"
-      >
-        {/* All Projects Button */}
-        <button
-          onClick={() => handleFilterChange('all')}
-          className={`px-4 py-2 rounded-lg transition-colors flex items-center gap-2 ${
-            filter === 'all'
-              ? 'bg-primary text-white'
-              : 'bg-primary/10 text-primary hover:bg-primary/20'
-          }`}
-        >
-          <Filter className="w-4 h-4" />
-          All Projects
-        </button>
-        
-        {/* Featured Button */}
-        <button
-          onClick={() => handleFilterChange('featured')}
-          className={`px-4 py-2 rounded-lg transition-colors ${
-            filter === 'featured'
-              ? 'bg-primary text-white'
-              : 'bg-primary/10 text-primary hover:bg-primary/20'
-          }`}
-        >
-          Featured
-        </button>
-        
-        {/* Popular Tags */}
-        {popularTags.map((tag) => (
-          <button
-            key={tag}
-            onClick={() => handleFilterChange(tag)}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              filter === tag
-                ? 'bg-primary text-white'
-                : 'bg-primary/10 text-primary hover:bg-primary/20'
-            }`}
-          >
-            {tag}
-          </button>
-        ))}
-      </motion.div>
+      <Reveal className="flex flex-wrap gap-2" >
+        {filters.map((f) => {
+          const active = filter === f
+          return (
+            <button
+              key={f}
+              onClick={() => handleFilterChange(f)}
+              aria-pressed={active}
+              className={`relative h-10 px-4 rounded-full font-mono text-[13px] border transition-colors ${
+                active
+                  ? 'border-transparent text-primary-ink'
+                  : 'border-border text-muted hover:text-foreground hover:border-foreground/40'
+              }`}
+            >
+              {active && (
+                <motion.span
+                  layoutId="filter-pill"
+                  className="absolute inset-0 rounded-full bg-primary"
+                  transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                />
+              )}
+              <span className="relative">{f === 'all' ? 'All' : f === 'featured' ? 'Featured' : f}</span>
+            </button>
+          )
+        })}
+      </Reveal>
 
-      {/* Projects Grid */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={filter}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+      <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, index) => (
             <ProjectCard
               key={project.id}
               project={project}
               index={index}
+              large={large.has(index)}
               onClick={() => setSelectedProject(project)}
             />
           ))}
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Empty State */}
-      {filteredProjects.length === 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-12"
-        >
-          <div className="text-6xl mb-4">📭</div>
-          <h3 className="text-xl font-semibold text-foreground mb-2">
-            No projects found
-          </h3>
-          <p className="text-muted">
-            Try selecting a different filter or check back later for new projects.
-          </p>
-        </motion.div>
-      )}
-
-      {/* Open-Source Contributions */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="space-y-6 pt-8"
-      >
-        <div className="text-center space-y-3">
-          <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
-            <span className="text-primary">{OPEN_SOURCE.mergedPrs}</span> merged open-source pull requests
-          </h3>
-          <p className="text-muted max-w-3xl mx-auto">
-            Backend and smart-contract work merged into production codebases across the
-            Stellar and Starknet ecosystems. A few highlights:
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {OPEN_SOURCE.highlights.map((item) => (
-            <a
-              key={item.project}
-              href={item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block p-6 rounded-2xl border border-border bg-background hover:border-primary/50 transition-colors group"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <h4 className="text-lg font-semibold text-foreground">{item.project}</h4>
-                <ExternalLink className="w-4 h-4 text-primary" />
-              </div>
-              <p className="text-muted mt-2">{item.work}</p>
-            </a>
-          ))}
-        </div>
-
-        <div className="text-center">
-          <a
-            href={OPEN_SOURCE.allPrsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background rounded-lg font-medium hover:bg-foreground/90 transition-colors"
-          >
-            <Github className="w-5 h-5" />
-            See all merged PRs
-          </a>
-        </div>
+        </AnimatePresence>
       </motion.div>
 
-      {/* Project Modal */}
+      {filteredProjects.length === 0 && (
+        <p className="text-center text-muted py-12">No projects match this filter yet.</p>
+      )}
+
+      {/* Project details */}
       <AnimatePresence>
         {selectedProject && (
-          <>
+          <motion.div
+            className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center p-0 sm:p-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className="absolute inset-0 bg-background/80 backdrop-blur-md" onClick={() => setSelectedProject(null)} />
+
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 rounded-xl"
-            />
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-background rounded-2xl shadow-2xl z-50 border border-border"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="project-dialog-title"
+              initial={{ opacity: 0, y: 40, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="relative card w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-b-none sm:rounded-b-[1.25rem]"
             >
-              <div className="p-6 md:p-8 rounded-xl">
-                {/* Modal Header */}
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <h3 className="text-2xl font-bold text-foreground">
-                      {selectedProject.title}
-                    </h3>
-                    <p className="text-sm font-medium text-primary mt-1">
-                      {selectedProject.role}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {selectedProject.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    className="p-2 rounded-lg hover:bg-primary/10 transition-colors"
-                    aria-label="Close modal"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
+              <div className="relative aspect-[16/8] bg-surface-2 overflow-hidden">
+                <img
+                  src={selectedProject.image}
+                  alt={`${selectedProject.title} preview`}
+                  className="w-full h-full object-cover object-top"
+                />
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-4 right-4 grid place-items-center w-10 h-10 rounded-full glass text-foreground hover:text-primary transition-colors"
+                  aria-label="Close project details"
+                  autoFocus
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="p-6 sm:p-10 space-y-8">
+                <div className="space-y-3">
+                  <p className="text-label text-primary">{selectedProject.role}</p>
+                  <h3 id="project-dialog-title" className="text-h2 !text-3xl sm:!text-4xl text-foreground">
+                    {selectedProject.title}
+                  </h3>
+                  <p className="text-lead text-muted">{selectedProject.description}</p>
                 </div>
 
-                {/* Modal Content */}
-                <div className="space-y-6 rounded-xl">
-                  <div className="aspect-video bg-linear-to-br from-primary/20 to-primary-light/20 rounded-xl flex items-center justify-center">
-                    {selectedProject.image ? <img 
-                      alt={`${selectedProject.title} preview`} 
-                      src={selectedProject.image}
-                      className="w-full h-full rounded-xl object-cover"
-                    /> : 
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-6xl">🚀</div>
-                      </div>                    
-                    }
-                  </div>
-                  
-                  <div className="prose prose-lg max-w-none">
-                    <p className="text-lg text-foreground">
-                      {selectedProject.description}
-                    </p>
-                    <h4 className="text-lg font-semibold text-foreground mt-6 mb-3">
-                      Engineering highlights
-                    </h4>
-                    <ul className="space-y-2 list-disc pl-5 text-muted">
-                      {selectedProject.highlights.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
+                <div>
+                  <p className="text-label text-faint mb-4">Engineering highlights</p>
+                  <ul className="space-y-3">
+                    {selectedProject.highlights.map((item) => (
+                      <li key={item} className="grid grid-cols-[1.25rem_1fr] text-foreground">
+                        <span aria-hidden className="text-primary font-mono">›</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-                  {/* Links */}
-                  <div className="flex gap-4 pt-4">
-                    {selectedProject.githubUrl && (
-                      <a
-                        href={selectedProject.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background rounded-lg font-medium hover:bg-foreground/90 transition-colors"
-                      >
-                        <Github className="w-5 h-5" />
-                        View Code
-                      </a>
-                    )}
-                    
-                    {selectedProject.liveUrl && (
-                      <a
-                        href={selectedProject.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-light transition-colors"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                        {selectedProject.liveLabel}
-                      </a>
-                    )}
-                  </div>
+                <ul className="flex flex-wrap gap-2">
+                  {selectedProject.tags.map((tag) => (
+                    <li key={tag} className="chip">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <a
+                    href={selectedProject.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-primary text-primary-ink font-semibold hover:bg-primary-light transition-colors"
+                  >
+                    {selectedProject.liveLabel}
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                  {selectedProject.githubUrl && (
+                    <a
+                      href={selectedProject.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 h-12 px-6 rounded-full border border-border text-foreground font-medium hover:border-foreground transition-colors"
+                    >
+                      <Github className="w-4 h-4" />
+                      View code
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
